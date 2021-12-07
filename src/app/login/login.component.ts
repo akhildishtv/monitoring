@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AllApiService } from 'src/services/all-api.service';
-
+import { CommonService } from '../services/common.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,7 +14,8 @@ export class LoginComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     private router: Router,
-    private APIService: AllApiService) {
+    private APIService : CommonService
+    ) {
 
   }
 
@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
       var value = this.elegantForm.value;
       this.APIService.login(value)
         .subscribe(data => {
+          localStorage.setItem('userName', data.data.user.name)
           this.router.navigate(['dashboard']);
         })
     }

@@ -12,19 +12,23 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { FooterComponent } from './helpers/footer/footer.component';
 import { HeaderComponent } from './helpers/header/header.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SidebarComponent } from './helpers/sidebar/sidebar.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     DashboardComponent,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule ,
+    NgxSpinnerModule,
     MDBBootstrapModule.forRoot()
   ],
   providers: [],
