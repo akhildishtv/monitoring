@@ -1,0 +1,35 @@
+<div class="card">
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <h5 style="width: max-content;">Video Player API</h5>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="col">API Name</th>
+                    <td>http://a-fds.youborafds01.com/data?outputformat=json&system=dishindiadev&pluginVersion=6.7.35-adapterless-js&requestNumber=0.9426220496137825&timemark=1638955838474</td>
+                </tr>
+                <tr>
+                    <th scope="col">Execution At</th>
+                    <td>{{startTime}}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Response Time</th>
+                    <td>{{diff}} Seconds</td>
+                </tr>
+                <tr>
+                    <th scope="col">Description</th>
+                    <td>@API Used for Playing Video in Watcho</td>
+                </tr>
+                <tr>
+                    <th scope="col">Status</th>
+                    <td><span *ngIf="status === true">Success</span></td>
+                    <td><span *ngIf="status === false">Fail</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- <ngx-spinner size="medium" type="ball-spin">
+    <p class="loading">Loading...</p>
+  </ngx-spinner> -->

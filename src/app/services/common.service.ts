@@ -71,4 +71,17 @@ export class CommonService {
         catchError(err => { return null })
       )
   }
+  getWebSeriesData(value): Observable<any> {
+    return this.http.post<any>(`https://restv4-as.ott.kaltura.com/v5_0_3/api_v3/service/asset/action/list`, value)
+      .pipe(
+        catchError(err => { return null })
+      )
+  }
+
+  getVideoPlayerData(): Observable<any> {
+    return this.http.get<any>(`http://a-fds.youborafds01.com/data?outputformat=json&system=dishindiadev&pluginVersion=6.7.35-adapterless-js&requestNumber=0.9426220496137825&timemark=1638955838474`)
+      .pipe(
+        catchError(err => { return null })
+      )
+  }
 }

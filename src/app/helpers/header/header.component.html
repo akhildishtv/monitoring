@@ -3,37 +3,42 @@
 
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark pink scrolling-navbar">
         <a class="navbar-brand" href="javascript:void(0)"><strong>MONITORING</strong></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" routerLinkActive="active" href="javascript:void(0)" routerLink="channels">CHANNELS <span class="sr-only"></span></a>
+                <li class="nav-item dropdown">
+                    <a class="link dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown">ANALYTICS </a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-item">
+                            <a class=" dropdown-item" routerLinkActive="active" routerLink="channels">Channels API</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class=" dropdown-item " routerLinkActive="active" routerLink="programs">Programs API</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class=" dropdown-item" routerLinkActive="active" routerLink="languages">Languages API</a>
+                        </li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLinkActive="active" href="javascript:void(0)" routerLink="programs">PROGRAMS <span class="sr-only"></span></a>
+                <li class="nav-item dropdown">
+                    <a class="link dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown">WATCHO </a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-item">
+                            <a class=" dropdown-item" routerLinkActive="active" routerLink="webSeries">Web Series API </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class=" dropdown-item " routerLinkActive="active" routerLink="player">Player API </a>
+                        </li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link"  routerLinkActive="active" href="javascript:void(0)" routerLink="languages">LANGUAGES <span class="sr-only"></span></a>
-                </li>
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0)">Opinions</a>
-                </li> -->
             </ul>
             <ul class="navbar-nav nav-flex-icons">
                 <li class="nav-item" title="Log Out">
-                    <a class="nav-link" (click)="logout()"><i class="fa fa-user"></i></a>
+                    <a class="" (click)="logout()"><i class="fa fa-user"></i></a>
                 </li>
-                <!-- <li class="nav-item">
-                    <a class="nav-link"><i class="fab fa-facebook-f"></i></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link"><i class="fab fa-twitter"></i></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link"><i class="fab fa-instagram"></i></a>
-                </li> -->
             </ul>
         </div>
     </nav>
