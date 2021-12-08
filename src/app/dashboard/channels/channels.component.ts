@@ -107,6 +107,7 @@ export class ChannelsComponent implements OnInit {
   };
   diff: number;
   startTime: string;
+  status: boolean;
   constructor(
     private APIService: CommonService,
     private spinner: NgxSpinnerService,
@@ -146,6 +147,12 @@ export class ChannelsComponent implements OnInit {
         if (data.length) {
           const endTime = new Date().getTime();
           this.diff = (endTime - startTime) / 1000
+          if(this.diff > 3){
+            this.status = false
+          }
+          else {
+            this.status = true
+          }
           this.spinner.hide();
         }
       })

@@ -23,9 +23,13 @@
                 </tr>
                 <tr>
                     <th scope="col">Status</th>
-                    <td>Success</td>
+                    <td><span *ngIf="status === true">Success</span></td>
+                    <td><span *ngIf="status === false">Fail</span></td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
+<!-- <ngx-spinner size="medium" type="ball-spin">
+    <p class="loading">Loading...</p>
+  </ngx-spinner> -->
