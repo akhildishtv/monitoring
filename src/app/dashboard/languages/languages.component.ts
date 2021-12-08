@@ -9,6 +9,8 @@ import { CommonService } from 'src/app/services/common.service';
 })
 export class LanguagesComponent implements OnInit {
   id: any
+  startTime: string;
+  diff: number;
 
   constructor(
     private APIService: CommonService
@@ -42,13 +44,13 @@ export class LanguagesComponent implements OnInit {
       second: 'numeric',
       hour12: true
     }).format(startTime)
+    this.startTime = time1
     this.APIService.getLanguageList(value)
       .subscribe(data => {
         if (data) {
           const endTime = new Date().getTime();
-          const diff = (endTime - startTime) / 1000
+          this.diff = (endTime - startTime) / 1000
           // this.spinner.hide();
-          console.log(diff, "seconds")
         }
       })
   }

@@ -9,6 +9,8 @@ import { CommonService } from 'src/app/services/common.service';
 })
 export class ProgramsComponent implements OnInit {
   id: any
+  startTime: string;
+  diff: number;
 
   constructor(
     private APIService: CommonService
@@ -41,14 +43,23 @@ export class ProgramsComponent implements OnInit {
       second: 'numeric',
       hour12: true
     }).format(startTime)
-    console.log(time1)
+    this.startTime = time1
     this.APIService.getProgramList(value)
       .subscribe(data => {
+        console.log(data,"getProgramList")
         if (data.length) {
           const endTime = new Date().getTime();
-          const diff = (endTime - startTime) / 1000
+          this.diff = (endTime - startTime) / 1000
           // this.spinner.hide();
-          console.log(diff, "seconds")
+        }
+      })
+    this.APIService.getAllProgramList(value)
+      .subscribe(data => {
+        console.log(data,"getAllProgramList")
+        if (data.length) {
+          // const endTime = new Date().getTime();
+          // this.diff = (endTime - startTime) / 1000
+          // this.spinner.hide();
         }
       })
   }

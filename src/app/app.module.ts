@@ -14,6 +14,9 @@ import { HeaderComponent } from './helpers/header/header.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SidebarComponent } from './helpers/sidebar/sidebar.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { ChartsModule } from 'ng2-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,8 +30,10 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    ChartsModule,
     HttpClientModule ,
     NgxSpinnerModule,
+    BrowserAnimationsModule,
     MDBBootstrapModule.forRoot()
   ],
   providers: [],
