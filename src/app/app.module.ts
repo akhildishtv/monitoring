@@ -16,6 +16,11 @@ import { SidebarComponent } from './helpers/sidebar/sidebar.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ChartsModule } from 'ng2-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ChannelsComponent } from './analytics/channels/channels.component';
+import { LanguagesComponent } from './analytics/languages/languages.component';
+import { ProgramsComponent } from './analytics/programs/programs.component';
+import { PlayerComponent } from './watcho/player/player.component';
+import { WebSeriesComponent } from './watcho/web-series/web-series.component';
 
 @NgModule({
   declarations: [
@@ -24,14 +29,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     DashboardComponent,
     FooterComponent,
     HeaderComponent,
-    SidebarComponent
+    SidebarComponent,
+    ChannelsComponent, 
+    ProgramsComponent, 
+    LanguagesComponent, 
+    PlayerComponent, 
+    WebSeriesComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     ChartsModule,
-    HttpClientModule ,
+    HttpClientModule,
     NgxSpinnerModule,
     BrowserAnimationsModule,
     MDBBootstrapModule.forRoot()
