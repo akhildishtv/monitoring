@@ -19,73 +19,17 @@ export class ProgramsComponent implements OnInit {
   public mainChartColours: Array<any> = [
     {
       backgroundColor: 'transparent',
-      borderColor: '#D0B1AA',
-      pointRadius: 3,
-      pointBorderWidth: 3,
-      pointHoverBackgroundColor: '#fff'
-    },
-    {
-      backgroundColor: 'transparent',
-      borderColor: '#CFD166',
-      pointRadius: 3,
-      pointBorderWidth: 3,
-      pointHoverBackgroundColor: '#fff'
-    },
-    {
-      backgroundColor: 'transparent',
-      borderColor: '#768167',
-      pointRadius: 3,
-      pointBorderWidth: 3,
-      pointHoverBackgroundColor: '#fff'
-    },
-    {
-      backgroundColor: 'transparent',
-      borderColor: '#BFE622',
-      pointRadius: 3,
-      pointBorderWidth: 3,
-      pointHoverBackgroundColor: '#fff'
-    },
-    {
-      backgroundColor: 'transparent',
-      borderColor: '#0F8434',
-      pointRadius: 3,
-      pointBorderWidth: 3,
-      pointHoverBackgroundColor: '#fff'
-    },
-    {
-      backgroundColor: 'transparent',
-      borderColor: '#59DFCB',
-      pointRadius: 3,
-      pointBorderWidth: 3,
-      pointHoverBackgroundColor: '#fff'
-    },
-    {
-      backgroundColor: 'transparent',
-      borderColor: '#4079DD',
-      pointRadius: 3,
-      pointBorderWidth: 3,
-      pointHoverBackgroundColor: '#fff'
-    },
-    {
-      backgroundColor: 'transparent',
-      borderColor: '#03493E',
-      pointRadius: 3,
-      pointBorderWidth: 3,
-      pointHoverBackgroundColor: '#fff'
-    },
-    {
-      backgroundColor: 'transparent',
-      borderColor: '#071CEF',
-      pointRadius: 3,
-      pointBorderWidth: 3,
-      pointHoverBackgroundColor: '#fff'
-    },
-    {
-      backgroundColor: 'transparent',
       borderColor: '#F214E5',
       pointRadius: 3,
       pointBorderWidth: 3,
       pointHoverBackgroundColor: '#fff',
+    },
+    {
+      backgroundColor: 'transparent',
+      borderColor: '#1f7a8e',
+      pointRadius: 3,
+      pointBorderWidth: 3,
+      pointHoverBackgroundColor: '#fff'
     },
   ];
   public mainChartOptions: any = {
@@ -121,7 +65,7 @@ export class ProgramsComponent implements OnInit {
           display: true,
           scaleLabel: {
             display: true,
-            labelString: "RESPONSE TIME",
+            labelString: "RESPONSE TIME (Seconds)",
           },
         },
       ],
