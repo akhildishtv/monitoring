@@ -9,23 +9,27 @@
                     <th scope="col">API Name</th>
                     <td>http://analytics.mysmartstick.com/api/v1/analytics/event/newsevents</td>
                 </tr>
-                <tr>
+                <!-- <tr>
                     <th scope="col">Execution At</th>
                     <td>{{startTime}}</td>
                 </tr>
                 <tr>
                     <th scope="col">Response Time</th>
                     <td>{{diff}} Seconds</td>
-                </tr>
+                </tr> -->
                 <tr>
                     <th scope="col">Description</th>
                     <td>@API Used for Getting list Of All Programs</td>
                 </tr>
-                <tr>
+                <!-- <tr>
                     <th scope="col">Status</th>
                     <td>Success</td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
+        <div class="chart-wrapper canvas">
+            <canvas baseChart class="chart" [datasets]="mainChartData" [labels]="mainChartLabels" [options]="mainChartOptions"
+                [colors]="mainChartColours" [legend]="mainChartLegend" [chartType]="mainChartType"></canvas>
+        </div>
     </div>
 </div>
