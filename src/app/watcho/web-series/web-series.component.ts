@@ -229,6 +229,6 @@ export class WebSeriesComponent implements OnInit {
           console.log(this.mainChartData)
         }
       })
-  }
+  }            
 
 }

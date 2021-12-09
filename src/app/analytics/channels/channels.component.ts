@@ -3,7 +3,7 @@ import * as moment from 'moment';
 import { CommonService } from 'src/app/services/common.service';
 import { NgxSpinnerService } from "ngx-spinner";
 import { ChartDataSets, ChartOptions } from 'chart.js';
-import { Color, Label } from 'ng2-charts';
+import { Color, defaultColors } from 'ng2-charts';
 
 @Component({
   selector: 'app-channels',
@@ -12,8 +12,8 @@ import { Color, Label } from 'ng2-charts';
 })
 export class ChannelsComponent implements OnInit {
   id: any
-  public mainChartData: Array<any> = [{ data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },];
-  public mainChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public mainChartData: Array<any> = [];
+  public mainChartLabels: Array<any> = [];
   public mainChartLegend = true;
   public mainChartType = 'line';
   public mainChartColours: Array<any> = [
@@ -37,6 +37,55 @@ export class ChannelsComponent implements OnInit {
       pointRadius: 3,
       pointBorderWidth: 3,
       pointHoverBackgroundColor: '#fff'
+    },
+    {
+      backgroundColor: 'transparent',
+      borderColor: '#BFE622',
+      pointRadius: 3,
+      pointBorderWidth: 3,
+      pointHoverBackgroundColor: '#fff'
+    },
+    {
+      backgroundColor: 'transparent',
+      borderColor: '#0F8434',
+      pointRadius: 3,
+      pointBorderWidth: 3,
+      pointHoverBackgroundColor: '#fff'
+    },
+    {
+      backgroundColor: 'transparent',
+      borderColor: '#59DFCB',
+      pointRadius: 3,
+      pointBorderWidth: 3,
+      pointHoverBackgroundColor: '#fff'
+    },
+    {
+      backgroundColor: 'transparent',
+      borderColor: '#4079DD',
+      pointRadius: 3,
+      pointBorderWidth: 3,
+      pointHoverBackgroundColor: '#fff'
+    },
+    {
+      backgroundColor: 'transparent',
+      borderColor: '#03493E',
+      pointRadius: 3,
+      pointBorderWidth: 3,
+      pointHoverBackgroundColor: '#fff'
+    },
+    {
+      backgroundColor: 'transparent',
+      borderColor: '#071CEF',
+      pointRadius: 3,
+      pointBorderWidth: 3,
+      pointHoverBackgroundColor: '#fff'
+    },
+    {
+      backgroundColor: 'transparent',
+      borderColor: '#F214E5',
+      pointRadius: 3,
+      pointBorderWidth: 3,
+      pointHoverBackgroundColor: '#fff',
     },
   ];
   public mainChartOptions: any = {
@@ -66,13 +115,13 @@ export class ChannelsComponent implements OnInit {
       yAxes: [
         {
           ticks: {
-            stepSize: 1,
+            stepSize: 0.5,
             beginAtZero: true
           },
           display: true,
           scaleLabel: {
             display: true,
-            labelString: "USERS",
+            labelString: "RESPONSE TIME",
           },
         },
       ],
@@ -97,7 +146,7 @@ export class ChannelsComponent implements OnInit {
       }
     },
     legend: {
-      display: true,
+      display: false,
       maxWidth: 5,
       labels: {
         boxWidth: 15,
@@ -114,10 +163,10 @@ export class ChannelsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getData()
+    this.getData(1)
     this.id = setInterval(() => {
-      this.getData()
-    }, 30000)
+      this.getData(2)
+    }, 10000)
   }
   ngOnDestroy() {
     if (this.id) {
@@ -125,7 +174,7 @@ export class ChannelsComponent implements OnInit {
     }
   }
 
-  getData() {
+  getData(tag) {
     this.spinner.show();
     let now = new Date();
     var dateStringWithTime = moment(now).format(`yyyy-MM-DDTHH:mm:ss.SSSZ`);
@@ -142,18 +191,30 @@ export class ChannelsComponent implements OnInit {
       hour12: true
     }).format(startTime)
     this.startTime = time1
+    this.mainChartLabels.push(time1)
+    if (this.mainChartLabels.length > 10) {
+      this.mainChartLabels.shift();
+    }
+    this.mainChartColours.push(defaultColors)
     this.APIService.getChannelList(value)
       .subscribe(data => {
         if (data.length) {
           const endTime = new Date().getTime();
           this.diff = (endTime - startTime) / 1000
-          if(this.diff > 3){
-            this.status = false
+          let val = []
+          val.push(this.diff)
+          let value = {
+            data: val
+          }
+          if (tag == 1) {
+            this.mainChartData.push(value)
           }
           else {
-            this.status = true
+            this.mainChartData[1].data.push(this.diff)
+            if (this.mainChartData[1].data.length > 10) {
+              this.mainChartData[1].data.shift();
+            }
           }
-          this.spinner.hide();
         }
       })
   }
