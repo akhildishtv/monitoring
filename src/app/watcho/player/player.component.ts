@@ -3,6 +3,7 @@ import * as moment from 'moment';
 import { CommonService } from 'src/app/services/common.service';
 import { NgxSpinnerService } from "ngx-spinner";
 import { Color, defaultColors } from 'ng2-charts';
+import * as pluginAnnotation from 'chartjs-plugin-annotation';
 
 @Component({
   selector: 'app-player',
@@ -35,6 +36,7 @@ export class PlayerComponent implements OnInit {
       pointHoverBackgroundColor: '#fff'
     },
   ];
+  public barChartPlugins = [pluginAnnotation];
   public mainChartOptions: any = {
     tooltips: {
       enabled: true,
@@ -58,6 +60,19 @@ export class PlayerComponent implements OnInit {
     },
     responsive: true,
     maintainAspectRatio: false,
+    annotation: {
+      drawTime: 'afterDatasetsDraw',
+      annotations: [
+        {
+          type: 'line',
+          mode: 'horizontal',
+          scaleID: 'y-axis-0',
+          value: 0.5,
+          borderColor: 'red',
+          borderWidth: 2,
+        }
+      ]
+    },
     scales: {
       yAxes: [
         {

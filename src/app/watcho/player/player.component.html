@@ -29,8 +29,9 @@
             </tbody>
         </table>
         <div class="chart-wrapper canvas">
-            <canvas baseChart class="chart" [datasets]="mainChartData" [labels]="mainChartLabels" [options]="mainChartOptions"
-                [colors]="mainChartColours" [legend]="mainChartLegend" [chartType]="mainChartType"></canvas>
+            <canvas baseChart class="chart" [datasets]="mainChartData" [plugins]="barChartPlugins"
+                [labels]="mainChartLabels" [options]="mainChartOptions" [colors]="mainChartColours"
+                [legend]="mainChartLegend" [chartType]="mainChartType"></canvas>
         </div>
     </div>
 </div>

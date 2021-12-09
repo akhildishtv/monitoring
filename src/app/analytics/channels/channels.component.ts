@@ -4,6 +4,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { NgxSpinnerService } from "ngx-spinner";
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, defaultColors } from 'ng2-charts';
+import * as pluginAnnotation from 'chartjs-plugin-annotation';
 
 @Component({
   selector: 'app-channels',
@@ -16,6 +17,7 @@ export class ChannelsComponent implements OnInit {
   public mainChartLabels: Array<any> = [];
   public mainChartLegend = true;
   public mainChartType = 'line';
+  public barChartPlugins = [pluginAnnotation];
   public mainChartColours: Array<any> = [
     {
       backgroundColor: 'transparent',
@@ -55,6 +57,19 @@ export class ChannelsComponent implements OnInit {
     },
     responsive: true,
     maintainAspectRatio: false,
+    annotation: {
+      drawTime: 'afterDatasetsDraw',
+      annotations: [
+        {
+          type: 'line',
+          mode: 'horizontal',
+          scaleID: 'y-axis-0',
+          value: 3,
+          borderColor: 'red',
+          borderWidth: 2,
+        }
+      ]
+    },
     scales: {
       yAxes: [
         {
@@ -66,7 +81,7 @@ export class ChannelsComponent implements OnInit {
           display: true,
           scaleLabel: {
             display: true,
-            labelString:  "RESPONSE TIME (Seconds)",
+            labelString: "RESPONSE TIME (Seconds)",
           },
         },
       ],
