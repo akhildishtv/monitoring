@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthService } from '../app/services/auth-guards';
 import { ChannelsComponent } from './analytics/channels/channels.component';
 import { LanguagesComponent } from './analytics/languages/languages.component';
+import { LocationsComponent } from './analytics/locations/locations.component';
 import { ProgramsComponent } from './analytics/programs/programs.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
@@ -41,6 +42,10 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
+  },
+  {
+    path: 'locations',
+    component: LocationsComponent,
   }
 ];
 

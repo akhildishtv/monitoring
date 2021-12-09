@@ -84,4 +84,11 @@ export class CommonService {
         catchError(err => { return null })
       )
   }
+
+  getlocationData(data): Observable<any> {
+		return this.http.post(`${this.API_ENDPOINT}/api/v1/analytics/channel/newslocationuser`, data, { headers: this.headers })
+			.pipe(
+				catchError(err => { return null })
+			)
+	}
 }

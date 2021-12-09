@@ -21,6 +21,7 @@ import { LanguagesComponent } from './analytics/languages/languages.component';
 import { ProgramsComponent } from './analytics/programs/programs.component';
 import { PlayerComponent } from './watcho/player/player.component';
 import { WebSeriesComponent } from './watcho/web-series/web-series.component';
+import { LocationsComponent } from './analytics/locations/locations.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { WebSeriesComponent } from './watcho/web-series/web-series.component';
     ProgramsComponent, 
     LanguagesComponent, 
     PlayerComponent, 
-    WebSeriesComponent
+    WebSeriesComponent, LocationsComponent
   ],
   imports: [
     BrowserModule,
