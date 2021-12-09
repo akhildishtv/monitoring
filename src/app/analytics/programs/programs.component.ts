@@ -64,7 +64,7 @@ export class ProgramsComponent implements OnInit {
           type: 'line',
           mode: 'horizontal',
           scaleID: 'y-axis-0',
-          value: 3,
+          value: 1,
           borderColor: 'red',
           borderWidth: 2,
         }
@@ -74,7 +74,7 @@ export class ProgramsComponent implements OnInit {
       yAxes: [
         {
           ticks: {
-            stepSize: 0.5,
+            stepSize: 0.2,
             beginAtZero: true
           },
           display: true,
@@ -131,9 +131,11 @@ export class ProgramsComponent implements OnInit {
 
   getData(tag) {
     // this.spinner.show();
-    let now = new Date();
-    var dateStringWithTime = moment(now).format(`yyyy-MM-DDTHH:mm:ss.SSSZ`);
-    var tsYesterday = moment().subtract(144, 'hours').format(`yyyy-MM-DDTHH:mm:ss.SSSZ`);
+    let now = new Date()
+      var todayDate = new Date()
+      todayDate.setHours(0, 0, 0, 0)
+      var dateStringWithTime = moment(now).local().format(`yyyy-MM-DDTHH:mm:ss`);
+      var tsYesterday = moment(todayDate).local().format(`yyyy-MM-DDTHH:mm:ss`);
     let value = {
       "start": tsYesterday,
       "end": dateStringWithTime
