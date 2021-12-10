@@ -4,6 +4,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { NgxSpinnerService } from "ngx-spinner";
 import { Color, defaultColors } from 'ng2-charts';
 import * as pluginAnnotation from 'chartjs-plugin-annotation';
+// const CronJob = require('../lib/cron.js').CronJob;
 
 @Component({
   selector: 'app-web-series',
@@ -125,6 +126,10 @@ export class WebSeriesComponent implements OnInit {
     this.id = setInterval(() => {
       this.getData(2)
     }, 10000)
+    // const job = new CronJob('0 */1 * * * *', function () {
+    //   this.getData(2)
+    // });
+    // job.start();
   }
   ngOnDestroy() {
     if (this.id) {
@@ -161,6 +166,7 @@ export class WebSeriesComponent implements OnInit {
       hour12: true
     }).format(startTime)
     this.startTime = time1
+    console.log(this.startTime,"CRON Job")
     this.mainChartLabels.push(time1)
     if (this.mainChartLabels.length > 10) {
       this.mainChartLabels.shift();
@@ -185,9 +191,19 @@ export class WebSeriesComponent implements OnInit {
               this.mainChartData[1].data.shift();
             }
           }
-          console.log(this.mainChartData)
+          this.saveData()
         }
       })
-  }            
+  }
+  saveData() {
+    let value = {
+      title: 'Web Series API',
+      responseTime: this.diff,
+      hitTime: this.startTime
+    }
+    this.APIService.saveAPIData(value)
+      .subscribe(data => {
+      })
+  }
 
 }

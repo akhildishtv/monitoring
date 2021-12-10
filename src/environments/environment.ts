@@ -4,6 +4,7 @@
 export const environment = {
   production: true,
   baseURL: 'http://analytics.mysmartstick.com',
+  localURL: 'http://127.0.0.1:3007',
   // baseURL: 'http://13.235.91.101:3009',
   // baseURL: 'http://127.0.0.1:3009/',
   catchUpURL: '/apps/video_mediashare/index.html?url='
