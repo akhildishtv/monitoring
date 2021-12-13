@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div class="card">
-    <div class="card-body">
+    <div class="card-body" style="height: 535px;">
         <table class="table">
             <thead>
                 <h5>News Channels API</h5>
@@ -10,26 +10,14 @@
                     <th scope="col">API Name</th>
                     <td>http://analytics.mysmartstick.com/api/v1/analytics/channel/news</td>
                 </tr>
-                <!-- <tr>
-                    <th scope="col">Execution At</th>
-                    <td>{{startTime}}</td>
-                </tr>
-                <tr>
-                    <th scope="col">Response Time</th>
-                    <td>{{diff}} Seconds</td>
-                </tr> -->
                 <tr>
                     <th scope="col">Description</th>
                     <td>@API Used for Getting list Of All News Channels</td>
                 </tr>
-                <!-- <tr>
-                    <th scope="col">Status</th>
-                    <td><span *ngIf="status === true">Success</span></td>
-                    <td><span *ngIf="status === false">Fail</span></td>
-                </tr> -->
             </tbody>
         </table>
         <div class="chart-wrapper canvas">
+            <button mdbRipple type="button" (click)="getDownloadData()" class="btn btn-success buttonCss">DOWNLOAD</button>
             <canvas baseChart class="chart" [datasets]="mainChartData" [plugins]="barChartPlugins"
                 [labels]="mainChartLabels" [options]="mainChartOptions" [colors]="mainChartColours"
                 [legend]="mainChartLegend" [chartType]="mainChartType"></canvas>

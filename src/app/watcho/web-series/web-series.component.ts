@@ -5,6 +5,9 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { Color, defaultColors } from 'ng2-charts';
 import * as pluginAnnotation from 'chartjs-plugin-annotation';
 // const CronJob = require('../lib/cron.js').CronJob;
+import { interval } from 'rxjs';
+
+//in 10 seconds do something
 
 @Component({
   selector: 'app-web-series',
@@ -123,13 +126,12 @@ export class WebSeriesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData(1)
-    this.id = setInterval(() => {
-      this.getData(2)
-    }, 10000)
-    // const job = new CronJob('0 */1 * * * *', function () {
+    // this.id = setInterval(() => {
     //   this.getData(2)
-    // });
-    // job.start();
+    // }, 10000)
+    interval(10000).subscribe(x => {
+      this.getData(2)
+    });
   }
   ngOnDestroy() {
     if (this.id) {
@@ -166,7 +168,6 @@ export class WebSeriesComponent implements OnInit {
       hour12: true
     }).format(startTime)
     this.startTime = time1
-    console.log(this.startTime,"CRON Job")
     this.mainChartLabels.push(time1)
     if (this.mainChartLabels.length > 10) {
       this.mainChartLabels.shift();
@@ -191,19 +192,61 @@ export class WebSeriesComponent implements OnInit {
               this.mainChartData[1].data.shift();
             }
           }
-          this.saveData()
+          if (this.diff > 0.5) {
+            this.saveData(startTime)
+          }
         }
       })
   }
-  saveData() {
+  saveData(startTime) {
     let value = {
       title: 'Web Series API',
       responseTime: this.diff,
-      hitTime: this.startTime
+      hitTime: startTime
     }
     this.APIService.saveAPIData(value)
-      .subscribe(data => {
+      .subscribe(res => {
+        if (res.code == 200) {
+          let resultData = res.data
+        }
       })
   }
 
+  getDownloadData() {
+    var now = new Date()
+    var todayDate = new Date()
+    todayDate.setHours(0, 0, 0, 0)
+    var start = now.getTime()
+    var old = todayDate.getTime()
+    let value = {
+      title: 'Web Series API',
+    }
+    this.APIService.getAPIData(value)
+      .subscribe(res => {
+        if (res.code == 200) {
+          let resultData = res.data
+          var sendData = resultData.filter(function (ele) {
+            return ele.hitTime < start && ele.hitTime > old
+          });
+          this.exportAsExcel(sendData)
+        }
+      })
+  }
+
+  exportAsExcel(sendData) {
+    var csvStr = "Web Series API Reports" + "\n";
+    let JsonFields = ["S.No", "Hit Time", "Response Time"]
+    csvStr += JsonFields.join(",") + "\n";
+    sendData.forEach((element, index) => {
+      const sNo = index + 1
+      const hitTime = new Date(Number(element.hitTime))
+      const responseTime = element.responseTime
+      csvStr += sNo + ',' + hitTime + ',' + responseTime + "\n";
+    })
+    var hiddenElement = document.createElement('a');
+    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csvStr);
+    hiddenElement.target = '_blank';
+    hiddenElement.download = 'Web-Series-API-Reports.csv';
+    hiddenElement.click();
+  }
 }

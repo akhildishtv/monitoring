@@ -21,30 +21,37 @@ const routes: Routes = [
   },
   {
     path: 'channels',
+    canActivate: [AuthService],
     component: ChannelsComponent
   },
   {
     path: 'programs',
+    canActivate: [AuthService],
     component: ProgramsComponent
   },
   {
     path: 'languages',
+    canActivate: [AuthService],
     component: LanguagesComponent
   },
   {
     path: 'player',
+    canActivate: [AuthService],
     component: PlayerComponent
   },
   {
     path: 'webSeries',
+    canActivate: [AuthService],
     component: WebSeriesComponent
   },
   {
     path: 'dashboard',
+    canActivate: [AuthService],
     component: DashboardComponent,
   },
   {
     path: 'locations',
+    canActivate: [AuthService],
     component: LocationsComponent,
   }
 ];

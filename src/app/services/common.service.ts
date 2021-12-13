@@ -99,4 +99,10 @@ export class CommonService {
 				catchError(err => { return null })
 			)
 	}
+  getAPIData(data): Observable<any> {
+		return this.http.post(`${this.localURL}/API/getAPIData`, data, { headers: this.headers })
+			.pipe(
+				catchError(err => { return null })
+			)
+	}
 }

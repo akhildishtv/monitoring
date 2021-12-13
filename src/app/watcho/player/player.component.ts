@@ -4,6 +4,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { NgxSpinnerService } from "ngx-spinner";
 import { Color, defaultColors } from 'ng2-charts';
 import * as pluginAnnotation from 'chartjs-plugin-annotation';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-player',
@@ -123,9 +124,12 @@ export class PlayerComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData(1)
-    this.id = setInterval(() => {
+    // this.id = setInterval(() => {
+    //   this.getData(2)
+    // }, 10000)
+    interval(10000).subscribe(x => {
       this.getData(2)
-    }, 10000)
+    });
   }
   ngOnDestroy() {
     if (this.id) {
@@ -165,8 +169,62 @@ export class PlayerComponent implements OnInit {
               this.mainChartData[1].data.shift();
             }
           }
-          // this.spinner.hide();
+          if (this.diff > 0.5) {
+            this.saveData(startTime)
+          }
         }
       })
+  }
+
+  saveData(startTime) {
+    let value = {
+      title: 'Video Player API',
+      responseTime: this.diff,
+      hitTime: startTime
+    }
+    this.APIService.saveAPIData(value)
+      .subscribe(res => {
+        if (res.code == 200) {
+          let resultData = res.data
+        }
+      })
+  }
+
+  getDownloadData() {
+    var now = new Date()
+    var todayDate = new Date()
+    todayDate.setHours(0, 0, 0, 0)
+    var start = now.getTime()
+    var old = todayDate.getTime()
+    let value = {
+      title: 'Video Player API',
+    }
+    this.APIService.getAPIData(value)
+      .subscribe(res => {
+        if (res.code == 200) {
+          let resultData = res.data
+          var sendData = resultData.filter(function (ele) {
+            return ele.hitTime < start && ele.hitTime > old
+          });
+          this.exportAsExcel(sendData)
+        }
+      })
+  }
+
+  exportAsExcel(sendData) {
+    var csvStr = "Video Player API Reports" + "\n";
+    let JsonFields = ["S.No", "Hit Time", "Response Time"]
+    csvStr += JsonFields.join(",") + "\n";
+    sendData.forEach((element, index) => {
+      const sNo = index + 1
+      const hitTime = new Date(Number(element.hitTime))
+      const responseTime = element.responseTime
+      csvStr += sNo + ',' + hitTime + ',' + responseTime + "\n";
+    })
+    var hiddenElement = document.createElement('a');
+    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csvStr);
+    hiddenElement.target = '_blank';
+    hiddenElement.download = 'Video-Player-API-Reports.csv';
+    hiddenElement.click();
   }
 }

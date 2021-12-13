@@ -19,7 +19,7 @@
 }
 
 .canvas {
-  height:350px;
+  height:300px;
   margin-top:40px;
 }
 .footer {
@@ -27,4 +27,13 @@
   left: 0;
   bottom: 0;
   width: 100%;
+}
+
+.buttonCss {
+  float: right;
+  margin-right: 35px;
+}
+
+.heading {
+  width: max-content;
 }
