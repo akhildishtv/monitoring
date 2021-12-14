@@ -122,8 +122,8 @@ export class ProgramsComponent implements OnInit {
     this.getData(1)
     // this.id = setInterval(() => {
     //   this.getData(2)
-    // }, 10000)
-    interval(10000).subscribe(x => {
+    // }, 30000)
+    interval(30000).subscribe(x => {
       this.getData(2)
     });
   }
@@ -176,22 +176,6 @@ export class ProgramsComponent implements OnInit {
               this.mainChartData[1].data.shift();
             }
           }
-          if (this.diff > 1) {
-            this.saveData(startTime)
-          }
-        }
-      })
-  }
-  saveData(startTime) {
-    let value = {
-      title: 'Programs API',
-      responseTime: this.diff,
-      hitTime: startTime
-    }
-    this.APIService.saveAPIData(value)
-      .subscribe(res => {
-        if (res.code == 200) {
-          let resultData = res.data
         }
       })
   }
@@ -203,7 +187,7 @@ export class ProgramsComponent implements OnInit {
     var start = now.getTime()
     var old = todayDate.getTime()
     let value = {
-      title: 'Programs API',
+      title: 'ProgramsAPI',
     }
     this.APIService.getAPIData(value)
       .subscribe(res => {

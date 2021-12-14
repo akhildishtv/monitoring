@@ -68,7 +68,7 @@ export class PlayerComponent implements OnInit {
           type: 'line',
           mode: 'horizontal',
           scaleID: 'y-axis-0',
-          value: 0.5,
+          value: 1,
           borderColor: 'red',
           borderWidth: 2,
         }
@@ -126,8 +126,8 @@ export class PlayerComponent implements OnInit {
     this.getData(1)
     // this.id = setInterval(() => {
     //   this.getData(2)
-    // }, 10000)
-    interval(10000).subscribe(x => {
+    // }, 30000)
+    interval(30000).subscribe(x => {
       this.getData(2)
     });
   }
@@ -169,23 +169,6 @@ export class PlayerComponent implements OnInit {
               this.mainChartData[1].data.shift();
             }
           }
-          if (this.diff > 0.5) {
-            this.saveData(startTime)
-          }
-        }
-      })
-  }
-
-  saveData(startTime) {
-    let value = {
-      title: 'Video Player API',
-      responseTime: this.diff,
-      hitTime: startTime
-    }
-    this.APIService.saveAPIData(value)
-      .subscribe(res => {
-        if (res.code == 200) {
-          let resultData = res.data
         }
       })
   }
@@ -197,7 +180,7 @@ export class PlayerComponent implements OnInit {
     var start = now.getTime()
     var old = todayDate.getTime()
     let value = {
-      title: 'Video Player API',
+      title: 'VideoPlayerAPI',
     }
     this.APIService.getAPIData(value)
       .subscribe(res => {

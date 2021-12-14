@@ -65,7 +65,7 @@ export class LocationsComponent implements OnInit {
           type: 'line',
           mode: 'horizontal',
           scaleID: 'y-axis-0',
-          value: 25,
+          value: 30,
           borderColor: 'red',
           borderWidth: 2,
         }
@@ -136,10 +136,10 @@ export class LocationsComponent implements OnInit {
   getData(tag) {
     // this.spinner.show();
     let now = new Date()
-      var todayDate = new Date()
-      todayDate.setHours(0, 0, 0, 0)
-      var dateStringWithTime = moment(now).local().format(`yyyy-MM-DDTHH:mm:ss`);
-      var tsYesterday = moment(todayDate).local().format(`yyyy-MM-DDTHH:mm:ss`);
+    var todayDate = new Date()
+    todayDate.setHours(0, 0, 0, 0)
+    var dateStringWithTime = moment(now).local().format(`yyyy-MM-DDTHH:mm:ss`);
+    var tsYesterday = moment(todayDate).local().format(`yyyy-MM-DDTHH:mm:ss`);
     let value = {
       "start": tsYesterday,
       "end": dateStringWithTime
@@ -176,22 +176,6 @@ export class LocationsComponent implements OnInit {
               this.mainChartData[1].data.shift();
             }
           }
-          if (this.diff > 25) {
-            this.saveData(startTime)
-          }         }
-      })
-  }
-
-  saveData(startTime) {
-    let value = {
-      title: 'Location API',
-      responseTime: this.diff,
-      hitTime: startTime
-    }
-    this.APIService.saveAPIData(value)
-      .subscribe(res => {
-        if (res.code == 200) {
-          let resultData = res.data
         }
       })
   }
@@ -203,7 +187,7 @@ export class LocationsComponent implements OnInit {
     var start = now.getTime()
     var old = todayDate.getTime()
     let value = {
-      title: 'Location API',
+      title: 'LocationAPI',
     }
     this.APIService.getAPIData(value)
       .subscribe(res => {
