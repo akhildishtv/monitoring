@@ -7,6 +7,7 @@ import { LocationsComponent } from './analytics/locations/locations.component';
 import { ProgramsComponent } from './analytics/programs/programs.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
+import { ActiveSubscriptionComponent } from './watcho/active-subscription/active-subscription.component';
 import { PlayerComponent } from './watcho/player/player.component';
 import { WebSeriesComponent } from './watcho/web-series/web-series.component';
 
@@ -35,7 +36,7 @@ const routes: Routes = [
     component: LanguagesComponent
   },
   {
-    path: 'player',
+    path: 'videoPlayer',
     canActivate: [AuthService],
     component: PlayerComponent
   },
@@ -53,6 +54,11 @@ const routes: Routes = [
     path: 'locations',
     canActivate: [AuthService],
     component: LocationsComponent,
+  },
+  {
+    path: 'activeSubscriptions',
+    canActivate: [AuthService],
+    component: ActiveSubscriptionComponent,
   }
 ];
 

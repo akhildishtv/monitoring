@@ -105,4 +105,11 @@ export class CommonService {
 				catchError(err => { return null })
 			)
 	}
+
+  getActiveSubscriptionData(): Observable<any> {
+    return this.http.get<any>(`https://ottmobileapis.dishtv.in/API/SubscriptionManagement/GetActiveSubscriptions`)
+      .pipe(
+        catchError(err => { return null })
+      )
+  }
 }
