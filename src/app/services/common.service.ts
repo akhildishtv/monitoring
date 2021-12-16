@@ -112,4 +112,11 @@ export class CommonService {
         catchError(err => { return null })
       )
   }
+
+  getKalturaLogin(value): Observable<any> {
+    return this.http.post<any>(`https://restv4-as.ott.kaltura.com/v5_0_3/api_v3/service/ottuser/action/login`, value)
+      .pipe(
+        catchError(err => { return null })
+      )
+  }
 }

@@ -23,6 +23,7 @@ import { PlayerComponent } from './watcho/player/player.component';
 import { WebSeriesComponent } from './watcho/web-series/web-series.component';
 import { LocationsComponent } from './analytics/locations/locations.component';
 import { ActiveSubscriptionComponent } from './watcho/active-subscription/active-subscription.component';
+import { KalturaLoginComponent } from './watcho/kaltura-login/kaltura-login.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import { ActiveSubscriptionComponent } from './watcho/active-subscription/active
     ProgramsComponent, 
     LanguagesComponent, 
     PlayerComponent, 
-    WebSeriesComponent, LocationsComponent, ActiveSubscriptionComponent
+    WebSeriesComponent, LocationsComponent, ActiveSubscriptionComponent, KalturaLoginComponent
   ],
   imports: [
     BrowserModule,
