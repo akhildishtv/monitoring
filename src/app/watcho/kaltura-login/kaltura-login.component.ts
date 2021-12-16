@@ -196,7 +196,7 @@ export class KalturaLoginComponent implements OnInit {
     var start = now.getTime()
     var old = todayDate.getTime()
     let value = {
-      title: 'ActiveSubscriptionsAPI',
+      title: 'kalturaLoginAPI',
     }
     this.APIService.getAPIData(value)
       .subscribe(res => {
@@ -211,7 +211,7 @@ export class KalturaLoginComponent implements OnInit {
   }
 
   exportAsExcel(sendData) {
-    var csvStr = "Watcho Active Subscription API Reports" + "\n";
+    var csvStr = "kaltura Login API Reports" + "\n";
     let JsonFields = ["S.No", "Hit Time", "Response Time"]
     csvStr += JsonFields.join(",") + "\n";
     sendData.forEach((element, index) => {
@@ -223,7 +223,7 @@ export class KalturaLoginComponent implements OnInit {
     var hiddenElement = document.createElement('a');
     hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csvStr);
     hiddenElement.target = '_blank';
-    hiddenElement.download = 'Active-Subscriptions-API-Reports.csv';
+    hiddenElement.download = 'Kaltura-login-API-Reports.csv';
     hiddenElement.click();
   }
 }
