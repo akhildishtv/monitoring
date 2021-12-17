@@ -1,24 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { CommonService } from 'src/app/services/common.service';
+import { NgxSpinnerService } from "ngx-spinner";
 import { Color, defaultColors } from 'ng2-charts';
 import * as pluginAnnotation from 'chartjs-plugin-annotation';
 import { interval } from 'rxjs';
 
 @Component({
-  selector: 'app-programs',
-  templateUrl: './programs.component.html',
-  styleUrls: ['./programs.component.scss']
+  selector: 'app-active-subscription',
+  templateUrl: './active-subscription.component.html',
+  styleUrls: ['./active-subscription.component.scss']
 })
-export class ProgramsComponent implements OnInit {
-  id: any
-  startTime: string;
+export class ActiveSubscriptionComponent implements OnInit {
+
+
   diff: number;
+  startTime: string;
+  status: boolean;
+  id: any
   public mainChartData: Array<any> = [];
   public mainChartLabels: Array<any> = [];
   public mainChartLegend = true;
   public mainChartType = 'line';
-  public barChartPlugins = [pluginAnnotation];
   public mainChartColours: Array<any> = [
     {
       backgroundColor: 'transparent',
@@ -35,6 +38,7 @@ export class ProgramsComponent implements OnInit {
       pointHoverBackgroundColor: '#fff'
     },
   ];
+  public barChartPlugins = [pluginAnnotation];
   public mainChartOptions: any = {
     tooltips: {
       enabled: true,
@@ -75,13 +79,13 @@ export class ProgramsComponent implements OnInit {
       yAxes: [
         {
           ticks: {
-            stepSize: 0.2,
+            stepSize: 0.1,
             beginAtZero: true
           },
           display: true,
           scaleLabel: {
             display: true,
-            labelString: "RESPONSE TIME (Seconds)",
+            labelString:  "RESPONSE TIME (Seconds)",
           },
         },
       ],
@@ -115,7 +119,8 @@ export class ProgramsComponent implements OnInit {
     }
   };
   constructor(
-    private APIService: CommonService
+    private APIService: CommonService,
+    private spinner: NgxSpinnerService,
   ) { }
 
   ngOnInit(): void {
@@ -132,18 +137,7 @@ export class ProgramsComponent implements OnInit {
       clearInterval(this.id)
     }
   }
-
   getData(tag) {
-    // this.spinner.show();
-    let now = new Date()
-    var todayDate = new Date()
-    todayDate.setHours(0, 0, 0, 0)
-    var dateStringWithTime = moment(now).local().format(`yyyy-MM-DDTHH:mm:ss`);
-    var tsYesterday = moment(todayDate).local().format(`yyyy-MM-DDTHH:mm:ss`);
-    let value = {
-      "start": tsYesterday,
-      "end": dateStringWithTime
-    }
     const startTime = new Date().getTime();
     const time1 = new Intl.DateTimeFormat('en-US', {
       hour: 'numeric',
@@ -157,9 +151,9 @@ export class ProgramsComponent implements OnInit {
       this.mainChartLabels.shift();
     }
     this.mainChartColours.push(defaultColors)
-    this.APIService.getProgramList(value)
+    this.APIService.getActiveSubscriptionData()
       .subscribe(data => {
-        if (data.length) {
+        if (data) {
           const endTime = new Date().getTime();
           this.diff = (endTime - startTime) / 1000
           let val = []
@@ -179,7 +173,6 @@ export class ProgramsComponent implements OnInit {
         }
       })
   }
-
   getDownloadData() {
     var now = new Date()
     var todayDate = new Date()
@@ -187,7 +180,7 @@ export class ProgramsComponent implements OnInit {
     var start = now.getTime()
     var old = todayDate.getTime()
     let value = {
-      title: 'ProgramsAPI',
+      title: 'ActiveSubscriptionsAPI',
     }
     this.APIService.getAPIData(value)
       .subscribe(res => {
@@ -197,13 +190,12 @@ export class ProgramsComponent implements OnInit {
             return ele.hitTime < start && ele.hitTime > old
           });
           this.exportAsExcel(sendData)
-          console.log(sendData)
         }
       })
   }
 
   exportAsExcel(sendData) {
-    var csvStr = "Programs API Reports" + "\n";
+    var csvStr = "Watcho Active Subscription API Reports" + "\n";
     let JsonFields = ["S.No", "Hit Time", "Response Time"]
     csvStr += JsonFields.join(",") + "\n";
     sendData.forEach((element, index) => {
@@ -215,7 +207,7 @@ export class ProgramsComponent implements OnInit {
     var hiddenElement = document.createElement('a');
     hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csvStr);
     hiddenElement.target = '_blank';
-    hiddenElement.download = 'Programs-API-Reports.csv';
+    hiddenElement.download = 'Active-Subscriptions-API-Reports.csv';
     hiddenElement.click();
   }
 }
