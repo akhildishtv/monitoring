@@ -169,9 +169,9 @@ export class WebSeriesComponent implements OnInit {
     }).format(startTime)
     this.startTime = time1
     this.mainChartLabels.push(time1)
-    if (this.mainChartLabels.length > 10) {
-      this.mainChartLabels.shift();
-    }
+    // if (this.mainChartLabels.length > 10) {
+    //   this.mainChartLabels.shift();
+    // }
     this.mainChartColours.push(defaultColors)
     this.APIService.getWebSeriesData(value)
       .subscribe(data => {
@@ -187,7 +187,11 @@ export class WebSeriesComponent implements OnInit {
             this.mainChartData.push(value)
           }
           else {
+            console.log(this.mainChartData[1])
             this.mainChartData[1].data.push(this.diff)
+            if (this.mainChartLabels.length > 10) {
+              this.mainChartLabels.shift();
+            }
             if (this.mainChartData[1].data.length > 10) {
               this.mainChartData[1].data.shift();
             }
