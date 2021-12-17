@@ -158,9 +158,6 @@ export class ChannelsComponent implements OnInit {
     }).format(startTime)
     this.startTime = time1
     this.mainChartLabels.push(time1)
-    if (this.mainChartLabels.length > 10) {
-      this.mainChartLabels.shift();
-    }
     this.mainChartColours.push(defaultColors)
     this.APIService.getChannelList(value)
       .subscribe(data => {
@@ -177,6 +174,9 @@ export class ChannelsComponent implements OnInit {
           }
           else {
             this.mainChartData[1].data.push(this.diff)
+            if (this.mainChartLabels.length > 10) {
+              this.mainChartLabels.shift();
+            }
             if (this.mainChartData[1].data.length > 10) {
               this.mainChartData[1].data.shift();
             }
