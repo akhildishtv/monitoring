@@ -11,7 +11,7 @@ import { environment } from "../../environments/environment"
 })
 export class CommonService {
   API_ENDPOINT = environment.baseURL
-  localURL = environment.localURL
+  localURL = environment.baseURL1
   headers: any
   constructor(
     private http: HttpClient,
@@ -119,4 +119,11 @@ export class CommonService {
         catchError(err => { return null })
       )
   }
+
+  getData(data): Observable<any> {
+		return this.http.post(`${this.localURL}api/v1/analytics/impressions/dishbuzzimpression`, data, { headers: this.headers })
+			.pipe(
+				catchError(err => { return null })
+			)
+	}
 }
