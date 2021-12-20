@@ -293,28 +293,49 @@ export class WebSeriesComponent implements OnInit {
   }
 
   getAnaylticsLanguage(params) {
-    let startDate = new Date(params.start).getTime();
-    let endDate = new Date(params.end).getTime();
-    let diff = (endDate - startDate) / 1000
-    let totalMinute = diff / 60
-    let newArray = []
-    let nowDate = Date.now()
-    // https://stackoverflow.com/questions/42131900/add-5-minutes-to-current-time-javascript
-    newArray.push(nowDate)
-    for (let index = 0; index < totalMinute; index++) {
-      // nowDate = new Date(nowDate - (5 * 60 * 1000));
-      // newArray.push(nowDate)
-      // var beforeDate = 
-    }
-    console.log(newArray,"----------------")
-    this.APIService.getData(params)
-      .subscribe(res => {
-        let value = res
-        value.forEach(element => {
-          element.data.forEach((element, index) => {
-            // console.log(element, "-----------------------")
-          });
-        });
-      })
+    // let startDate = new Date(params.start).getTime();
+    // let endDate = new Date(params.end).getTime();
+    // let diff = (endDate - startDate) / 1000
+    // let totalMinute = diff / 60
+    // let newArray = []
+    // let nowDate = Date.now()
+    // // https://stackoverflow.com/questions/42131900/add-5-minutes-to-current-time-javascript
+    // newArray.push(nowDate)
+    // for (let index = 0; index < totalMinute; index++) {
+    //   // nowDate = new Date(nowDate - (5 * 60 * 1000));
+    //   // newArray.push(nowDate)
+    //   // var beforeDate = 
+    // }
+    // console.log(newArray,"----------------")
+    // this.APIService.getData(params)
+    //   .subscribe(res => {
+    //     let value = res
+    //     value.forEach(element => {
+    //       element.data.forEach((element, index) => {
+    //         // console.log(element, "-----------------------")
+    //       });
+    //     });
+    //   })
+    let array1 = [
+      { key: "no1", value: 1 },
+      { key: "no2", value: 1 },
+      { key: "no3", value: 1 },
+      { key: "no4", value: 4 },
+      { key: "no5", value: 5 },
+      { key: "no6", value: 6 },
+      { key: "no7", value: 7 },
+    ]
+    let array2 = [0, 2, 6]
+    let i = 0
+    let array3 = []
+
+    array1.forEach(element => {
+      if (element.value > array2[i] && element.value < array2[i + 1]) {
+        array3.push(element)
+      }
+    });
+    i = i + 1
+
+    console.log(array3,"**********************")
   }
 }
