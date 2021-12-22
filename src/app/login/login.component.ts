@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
       this.APIService.login(value)
         .subscribe(data => {
           localStorage.setItem('userName', data.data.user.name)
-          this.router.navigate(['channels']);
+          this.router.navigate(['webSeries']);
         })
     }
   }

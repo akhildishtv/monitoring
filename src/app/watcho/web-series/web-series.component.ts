@@ -7,6 +7,7 @@ import * as pluginAnnotation from 'chartjs-plugin-annotation';
 // const CronJob = require('../lib/cron.js').CronJob;
 import { interval } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { element } from 'protractor';
 
 //in 10 seconds do something
 
@@ -120,6 +121,8 @@ export class WebSeriesComponent implements OnInit {
       }
     }
   };
+  userData: any;
+  timeData: any;
   constructor(
     private APIService: CommonService,
     private spinner: NgxSpinnerService,
@@ -127,7 +130,6 @@ export class WebSeriesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.get()
     this.getData(1)
     // this.id = setInterval(() => {
     //   this.getData(2)
@@ -237,85 +239,44 @@ export class WebSeriesComponent implements OnInit {
     hiddenElement.click();
   }
 
-  get() {
-    var startDate = new Date(new Date().setDate(new Date().getDate() - 1));
-    var endDate = new Date();
-    let st_date: any = {};
-    let st_month: any = {};
-    let en_date: any = {};
-    let en_month: any = {};
-    let month_st = startDate.getUTCMonth() + 1;
-    let month_en = endDate.getUTCMonth() + 1;
-    if (startDate.getDate() < 10) {
-      st_date = '0' + startDate.getDate();
-    } else {
-      st_date = startDate.getDate();
+  exportAsExel(userData, timeData, params) {
+    var csvStr = "DISH BUZZ Reports" + "\n";
+    csvStr += "\n";
+    if (params.start) {
+      let value = new Date(params.start);
+      let mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(value);
+      let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(value);
+      let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(value);
+      var date1 = `${da}/${mo}/${ye}`
     }
-    if (month_st < 10) {
-      st_month = '0' + month_st;
-    } else {
-      st_month = month_st;
+    if (params.end) {
+      let value = new Date(params.end);
+      let mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(value);
+      let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(value);
+      let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(value);
+      var date2 = `${da}/${mo}/${ye}`
     }
-    if (endDate.getDate() < 10) {
-      en_date = '0' + endDate.getDate();
-    } else {
-      en_date = endDate.getDate();
+    csvStr += `${date1} - ${date2}` + "\n";
+    csvStr += "\n";
+    let JsonFields = ["Program Name", "Date", "Time", "Users", "Total Time Spent"]
+    csvStr += JsonFields.join(",") + "\n";
+    for (let index = 0; index < userData.length; index++) {
+      const programName = userData[index]._id;
+      userData[index].data.forEach((element, ind) => {
+        let time = element.time
+        let date = element.date
+        let user = element.total;
+        let spentTime = timeData[index].data[ind].total
+        csvStr += programName + "," + date + ',' + time + ',' + user + "," + spentTime + "\n";
+      });
     }
-    if (month_en < 10) {
-      en_month = '0' + month_en;
-    } else {
-      en_month = month_en;
-    }
-    let minute: any = {};
-    if (new Date().getMinutes() < 10) {
-      minute = '0' + new Date().getMinutes();
-    } else {
-      minute = new Date().getMinutes();
-    }
-    // this.reportForm.patchValue({
-    // 	type_id: 'all',
-    // 	start_date: startDate.getFullYear() + '-' + st_month + '-' + st_date + 'T' + new Date().getHours() + ':' + minute,
-    // 	end_date: endDate.getFullYear() + '-' + en_month + '-' + en_date + 'T' + new Date().getHours() + ':' + minute,
-    // })
-    const params: any = {};
-    params.start = this.timeConversion(startDate);
-    params.end = this.timeConversion(endDate);
-    // this.user = this.authenticationService.getUser();
-    params.dish = false;
-    params.d2h = false;
-    this.getAnaylticsLanguage(params);
+    var hiddenElement = document.createElement('a');
+    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csvStr);
+    hiddenElement.target = '_blank';
+    hiddenElement.download = 'DishBuzzReports.csv';
+    hiddenElement.click();
   }
-  timeConversion(time) {
-    time = new Date(time);
-    time.setHours(time.getHours() + 5);
-    time.setMinutes(time.getMinutes() + 30);
-    return time;
-  }
-
-  getAnaylticsLanguage(params) {
-    // let startDate = new Date(params.start).getTime();
-    // let endDate = new Date(params.end).getTime();
-    // let diff = (endDate - startDate) / 1000
-    // let totalMinute = diff / 60
-    // let newArray = []
-    // let nowDate = Date.now()
-    // // https://stackoverflow.com/questions/42131900/add-5-minutes-to-current-time-javascript
-    // newArray.push(nowDate)
-    // for (let index = 0; index < totalMinute; index++) {
-    //   // nowDate = new Date(nowDate - (5 * 60 * 1000));
-    //   // newArray.push(nowDate)
-    //   // var beforeDate = 
-    // }
-    // console.log(newArray,"----------------")
-    // this.APIService.getData(params)
-    //   .subscribe(res => {
-    //     let value = res
-    //     value.forEach(element => {
-    //       element.data.forEach((element, index) => {
-    //         // console.log(element, "-----------------------")
-    //       });
-    //     });
-    //   })
+  checkFunction() {
     let array1 = [
       { key: "no1", value: 1 },
       { key: "no2", value: 1 },
@@ -328,14 +289,15 @@ export class WebSeriesComponent implements OnInit {
     let array2 = [0, 2, 6]
     let i = 0
     let array3 = []
-
-    array1.forEach(element => {
-      if (element.value > array2[i] && element.value < array2[i + 1]) {
-        array3.push(element)
-      }
-    });
-    i = i + 1
-
-    console.log(array3,"**********************")
+    for (let index = 0; index < array2.length; index++) {
+      var array4 = []
+      array1.forEach(element => {
+        if (element.value > array2[i] && element.value < array2[i + 1]) {
+          array4.push(element)
+        }
+      });
+      array3.push(array4)
+      i = i + 1
+    }
   }
 }

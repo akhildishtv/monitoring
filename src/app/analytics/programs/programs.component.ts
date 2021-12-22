@@ -197,7 +197,6 @@ export class ProgramsComponent implements OnInit {
             return ele.hitTime < start && ele.hitTime > old
           });
           this.exportAsExcel(sendData)
-          console.log(sendData)
         }
       })
   }
