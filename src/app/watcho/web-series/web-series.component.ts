@@ -6,6 +6,8 @@ import { Color, defaultColors } from 'ng2-charts';
 import * as pluginAnnotation from 'chartjs-plugin-annotation';
 // const CronJob = require('../lib/cron.js').CronJob;
 import { interval } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { element } from 'protractor';
 
 //in 10 seconds do something
 
@@ -119,9 +121,12 @@ export class WebSeriesComponent implements OnInit {
       }
     }
   };
+  userData: any;
+  timeData: any;
   constructor(
     private APIService: CommonService,
     private spinner: NgxSpinnerService,
+    private httpClient: HttpClient,
   ) { }
 
   ngOnInit(): void {
@@ -232,5 +237,67 @@ export class WebSeriesComponent implements OnInit {
     hiddenElement.target = '_blank';
     hiddenElement.download = 'Web-Series-API-Reports.csv';
     hiddenElement.click();
+  }
+
+  exportAsExel(userData, timeData, params) {
+    var csvStr = "DISH BUZZ Reports" + "\n";
+    csvStr += "\n";
+    if (params.start) {
+      let value = new Date(params.start);
+      let mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(value);
+      let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(value);
+      let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(value);
+      var date1 = `${da}/${mo}/${ye}`
+    }
+    if (params.end) {
+      let value = new Date(params.end);
+      let mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(value);
+      let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(value);
+      let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(value);
+      var date2 = `${da}/${mo}/${ye}`
+    }
+    csvStr += `${date1} - ${date2}` + "\n";
+    csvStr += "\n";
+    let JsonFields = ["Program Name", "Date", "Time", "Users", "Total Time Spent"]
+    csvStr += JsonFields.join(",") + "\n";
+    for (let index = 0; index < userData.length; index++) {
+      const programName = userData[index]._id;
+      userData[index].data.forEach((element, ind) => {
+        let time = element.time
+        let date = element.date
+        let user = element.total;
+        let spentTime = timeData[index].data[ind].total
+        csvStr += programName + "," + date + ',' + time + ',' + user + "," + spentTime + "\n";
+      });
+    }
+    var hiddenElement = document.createElement('a');
+    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csvStr);
+    hiddenElement.target = '_blank';
+    hiddenElement.download = 'DishBuzzReports.csv';
+    hiddenElement.click();
+  }
+  checkFunction() {
+    let array1 = [
+      { key: "no1", value: 1 },
+      { key: "no2", value: 1 },
+      { key: "no3", value: 1 },
+      { key: "no4", value: 4 },
+      { key: "no5", value: 5 },
+      { key: "no6", value: 6 },
+      { key: "no7", value: 7 },
+    ]
+    let array2 = [0, 2, 6]
+    let i = 0
+    let array3 = []
+    for (let index = 0; index < array2.length; index++) {
+      var array4 = []
+      array1.forEach(element => {
+        if (element.value > array2[i] && element.value < array2[i + 1]) {
+          array4.push(element)
+        }
+      });
+      array3.push(array4)
+      i = i + 1
+    }
   }
 }
