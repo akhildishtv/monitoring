@@ -1,21 +1,21 @@
 <app-header></app-header>
-<div class="card">
-    <div class="card-body" style="height: 535px;">
-        <table class="table">
-            <thead>
-                <h5 class="heading">Video Player API</h5>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="col">API Name</th>
-                    <td>http://a-fds.youborafds01.com/data?outputformat=json&system=dishindiadev&pluginVersion=6.7.35-adapterless-js&requestNumber=0.9426220496137825&timemark=1638955838474</td>
-                </tr>
-                <tr>
-                    <th scope="col">Description</th>
-                    <td>@API Used for Playing Video in Watcho</td>
-                </tr>
-            </tbody>
-        </table>
+<div class="card margin">
+    <h2>Video Player API</h2>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th scope="col">API Name</th>
+                <td>http://a-fds.youborafds01.com/data?outputformat=json&system=dishindiadev&pluginVersion=6.7.35-adapterless-js&requestNumber=0.9426220496137825&timemark=1638955838474</td>
+            </tr>
+            <tr>
+                <th scope="col">Description</th>
+                <td>@API Used for Playing Video in Watcho</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="card mt-3" style="height: 400px;">
+    <div class="card-body">
         <div class="chart-wrapper canvas">
             <button mdbRipple type="button" (click)="getDownloadData()" class="btn btn-success buttonCss">DOWNLOAD</button>
             <canvas baseChart class="chart" [datasets]="mainChartData" [plugins]="barChartPlugins"
@@ -24,6 +24,3 @@
         </div>
     </div>
 </div>
-<!-- <ngx-spinner size="medium" type="ball-spin">
-    <p class="loading">Loading...</p>
-  </ngx-spinner> -->
