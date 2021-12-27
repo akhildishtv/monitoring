@@ -1,5 +1,76 @@
 <!--Main Navigation-->
+<!--Main Navigation-->
 <header>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark pink scrolling-navbar">
+        <a class="navbar-brand" href="javascript:void(0)" routerLink="/dashboard"><strong>MONITORING</strong></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="link dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown">ANALYTICS </a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-item">
+                            <a class=" dropdown-item" routerLinkActive="active" routerLink="/channels">Channels API</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class=" dropdown-item " routerLinkActive="active" routerLink="/programs">Programs API</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class=" dropdown-item" routerLinkActive="active" routerLink="/languages">Languages API</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class=" dropdown-item " routerLinkActive="active" routerLink="/locations">Locations API</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="link dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown">WATCHO </a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-item">
+                            <a class=" dropdown-item" routerLinkActive="active" routerLink="/webSeries">Web Series API </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class=" dropdown-item " routerLinkActive="active" routerLink="/videoPlayer">Video Player API </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class=" dropdown-item " routerLinkActive="active" routerLink="/activeSubscriptions">Active Subscription API </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class=" dropdown-item " routerLinkActive="active" routerLink="/kalturaLogin">Kaltura Login API </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" style="margin-right: 90px;">
+                <li class="nav-item dropdown">
+                    <a class="link dropdown-toggle"  data-bs-toggle="dropdown"><i class="fa fa-user"></i> </a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-item">
+                            <a class=" dropdown-item" (click)="logout()">Logout </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- <li class="nav-item dropdown">
+                <a class="link dropdown-toggle"  data-bs-toggle="dropdown"><i class="fa fa-user"></i> </a>
+                <ul class="dropdown-menu">
+                    <li class="nav-item">
+                        <a class=" dropdown-item" (click)="logout()">Logout </a>
+                    </li>
+                </ul>
+            </li> -->
+            <!-- <ul class="navbar-nav nav-flex-icons dropdown-menu">
+                <li class="nav-item" title="Log Out">
+                    <a class="dropdown-item" (click)="logout()"><i class="fa fa-user"></i></a>
+                </li>
+            </ul> -->
+        </div>
+    </nav>
+</header>
+<!-- <header>
 
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark pink scrolling-navbar">
         <a class="navbar-brand" href="javascript:void(0)" routerLink="/dashboard"><strong>MONITORING</strong></a>
@@ -49,7 +120,7 @@
                         </li>
                     </ul>
                 </li>
-            </ul>
+            </ul> -->
 
 
             <!-- <ul class="navbar-nav nav-flex-icons">
@@ -57,7 +128,7 @@
                     <a class="" (click)="logout()"><i class="fa fa-user"></i></a>
                 </li>
             </ul> -->
-        </div>
+        <!-- </div>
         <ul class="nav">
             <li class="nav-item dropdown" dropdown placement="bottom right">
                 <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
@@ -71,6 +142,6 @@
         </ul>
     </nav>
 
-</header>
+</header> -->
 <!--Main Navigation-->
 <!--Main Layout-->
