@@ -11,8 +11,7 @@ import { environment } from "../../environments/environment"
 })
 export class CommonService {
   API_ENDPOINT = environment.baseURL
-  localURL = environment.baseURL1
-  productionUrl = environment.productionUrl
+  PRODUCTION_URL = environment.productionUrl
   headers: any
   constructor(
     private http: HttpClient,
@@ -95,13 +94,13 @@ export class CommonService {
 	}
 
   saveAPIData(data): Observable<any> {
-		return this.http.post(`${this.localURL}/API/saveAPIData`, data, { headers: this.headers })
+		return this.http.post(`${this.PRODUCTION_URL}/API/saveAPIData`, data, { headers: this.headers })
 			.pipe(
 				catchError(err => { return null })
 			)
 	}
   getAPIData(data): Observable<any> {
-		return this.http.post(`${this.productionUrl}/API/getAPIData`, data, { headers: this.headers })
+		return this.http.post(`${this.PRODUCTION_URL}/API/getAPIData`, data, { headers: this.headers })
 			.pipe(
 				catchError(err => { return null })
 			)
@@ -122,7 +121,7 @@ export class CommonService {
   }
 
   getData(data): Observable<any> {
-		return this.http.post(`${this.localURL}api/v1/analytics/impressions/dishbuzzuser`, data, { headers: this.headers })
+		return this.http.post(`${this.API_ENDPOINT}api/v1/analytics/impressions/dishbuzzuser`, data, { headers: this.headers })
 			.pipe(
 				catchError(err => { return null })
 			)
@@ -130,7 +129,7 @@ export class CommonService {
 
   
   get1Data(data): Observable<any> {
-		return this.http.post(`${this.localURL}api/v1/analytics/impressions/dishbuzztime`, data, { headers: this.headers })
+		return this.http.post(`${this.API_ENDPOINT}api/v1/analytics/impressions/dishbuzztime`, data, { headers: this.headers })
 			.pipe(
 				catchError(err => { return null })
 			)
