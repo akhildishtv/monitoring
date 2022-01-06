@@ -174,6 +174,7 @@ export class PlayerComponent implements OnInit {
   }
 
   getDownloadData() {
+    this.spinner.show();
     var now = new Date()
     var todayDate = new Date()
     todayDate.setHours(0, 0, 0, 0)
@@ -196,6 +197,9 @@ export class PlayerComponent implements OnInit {
 
   exportAsExcel(sendData) {
     var csvStr = "Video Player API Reports" + "\n";
+    csvStr += "\n";
+    csvStr += 'Threshold Value : 1 Sec' + "\n";
+    csvStr += "\n";
     let JsonFields = ["S.No", "Hit Time", "Response Time"]
     csvStr += JsonFields.join(",") + "\n";
     sendData.forEach((element, index) => {
@@ -209,5 +213,6 @@ export class PlayerComponent implements OnInit {
     hiddenElement.target = '_blank';
     hiddenElement.download = 'Video-Player-API-Reports.csv';
     hiddenElement.click();
+    this.spinner.hide();
   }
 }

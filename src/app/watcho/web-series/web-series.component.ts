@@ -145,7 +145,6 @@ export class WebSeriesComponent implements OnInit {
   }
 
   getData(tag) {
-    // this.spinner.show();
     let value = {
       "apiVersion": "5.1.2.17630",
       "ks": "djJ8NDg3fPbH1m4lNsxW3bfPkL1_7mAaDV5rgRqJ5vsW_G5-CHPWSl8Xvt706-5Ydvone7awyfygdn4ozhz1fQR-u_nbe0p5Jdup0eyt3kakQBMzuXHhKHRtSkPrv8JnKGZaSC56Or4BRRPPOiiz2QjcGRU5zMoFsqrGlQeUGZ6e4rC0j6E-2MwsaSokWltChak8VIw-Uy_yCXITpkns0VjBRoLAY0RBH4xVDunD7FHEP2RctSvUIWTPD3d2V8l53FQiTIut6MUjtWL7EWfdSTk4nVVfvhv0Y0lnGamNjbjQg9if1pD64AD-s4f9Uvpcza2ibgdF1mLODGru4z7-zZKi0_PWt4PgAZY2tAq65_l05d3i9JtY",
@@ -202,6 +201,7 @@ export class WebSeriesComponent implements OnInit {
   }
 
   getDownloadData() {
+    this.spinner.show();
     var now = new Date()
     var todayDate = new Date()
     todayDate.setHours(0, 0, 0, 0)
@@ -224,7 +224,10 @@ export class WebSeriesComponent implements OnInit {
 
   exportAsExcel(sendData) {
     var csvStr = "Web Series API Reports" + "\n";
-    let JsonFields = ["S.No", "Hit Time", "Response Time"]
+    csvStr += "\n";
+    csvStr += 'Threshold Value : 1 Sec' + "\n";
+    csvStr += "\n";
+    let JsonFields = ["S.No", "Hit Time", "Response Time(In Seconds)"]
     csvStr += JsonFields.join(",") + "\n";
     sendData.forEach((element, index) => {
       const sNo = index + 1
@@ -237,6 +240,7 @@ export class WebSeriesComponent implements OnInit {
     hiddenElement.target = '_blank';
     hiddenElement.download = 'Web-Series-API-Reports.csv';
     hiddenElement.click();
+    this.spinner.hide();
   }
 
   exportAsExel(userData, timeData, params) {

@@ -4,6 +4,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { Color, defaultColors } from 'ng2-charts';
 import * as pluginAnnotation from 'chartjs-plugin-annotation';
 import { interval } from 'rxjs';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-locations',
@@ -115,7 +116,8 @@ export class LocationsComponent implements OnInit {
     }
   };
   constructor(
-    private APIService: CommonService
+    private APIService: CommonService,
+    private spinner: NgxSpinnerService,
   ) { }
 
   ngOnInit(): void {
@@ -134,7 +136,6 @@ export class LocationsComponent implements OnInit {
   }
 
   getData(tag) {
-    // this.spinner.show();
     let now = new Date()
     var todayDate = new Date()
     todayDate.setHours(0, 0, 0, 0)
@@ -181,6 +182,7 @@ export class LocationsComponent implements OnInit {
   }
 
   getDownloadData() {
+    this.spinner.show();
     var now = new Date()
     var todayDate = new Date()
     todayDate.setHours(0, 0, 0, 0)
@@ -203,6 +205,9 @@ export class LocationsComponent implements OnInit {
 
   exportAsExcel(sendData) {
     var csvStr = "Location API Reports" + "\n";
+    csvStr += "\n";
+    csvStr += 'Threshold Value : 30 Sec' + "\n";
+    csvStr += "\n";
     let JsonFields = ["S.No", "Hit Time", "Response Time"]
     csvStr += JsonFields.join(",") + "\n";
     sendData.forEach((element, index) => {
@@ -216,6 +221,7 @@ export class LocationsComponent implements OnInit {
     hiddenElement.target = '_blank';
     hiddenElement.download = 'Location-API-Reports.csv';
     hiddenElement.click();
+    this.spinner.hide()
   }
 }
 

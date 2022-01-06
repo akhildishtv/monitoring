@@ -4,6 +4,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { Color, defaultColors } from 'ng2-charts';
 import * as pluginAnnotation from 'chartjs-plugin-annotation';
 import { interval } from 'rxjs';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-languages',
@@ -115,7 +116,8 @@ export class LanguagesComponent implements OnInit {
     }
   };
   constructor(
-    private APIService: CommonService
+    private APIService: CommonService,
+    private spinner: NgxSpinnerService,
   ) { }
 
   ngOnInit(): void {
@@ -181,6 +183,7 @@ export class LanguagesComponent implements OnInit {
   }
 
   getDownloadData() {
+    this.spinner.show();
     var now = new Date()
     var todayDate = new Date()
     todayDate.setHours(0, 0, 0, 0)
@@ -203,6 +206,9 @@ export class LanguagesComponent implements OnInit {
 
   exportAsExcel(sendData) {
     var csvStr = "Language API Reports" + "\n";
+    csvStr += "\n";
+    csvStr += 'Threshold Value : 1 Sec' + "\n";
+    csvStr += "\n";
     let JsonFields = ["S.No", "Hit Time", "Response Time"]
     csvStr += JsonFields.join(",") + "\n";
     sendData.forEach((element, index) => {
@@ -216,5 +222,6 @@ export class LanguagesComponent implements OnInit {
     hiddenElement.target = '_blank';
     hiddenElement.download = 'Language-API-Reports.csv';
     hiddenElement.click();
+    this.spinner.hide()
   }
 }
