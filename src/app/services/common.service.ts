@@ -93,12 +93,15 @@ export class CommonService {
 			)
 	}
 
+<<<<<<< HEAD
   saveAPIData(data): Observable<any> {
 		return this.http.post(`${this.PRODUCTION_URL}/API/saveAPIData`, data, { headers: this.headers })
 			.pipe(
 				catchError(err => { return null })
 			)
 	}
+=======
+>>>>>>> 38da4bd8f446de28591679a8f0db252227ef477c
   getAPIData(data): Observable<any> {
 		return this.http.post(`${this.PRODUCTION_URL}/API/getAPIData`, data, { headers: this.headers })
 			.pipe(

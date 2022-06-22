@@ -139,7 +139,6 @@ export class ChannelsComponent implements OnInit {
   }
 
   getData(tag) {
-    this.spinner.show();
     let now = new Date()
     var todayDate = new Date()
     todayDate.setHours(0, 0, 0, 0)
@@ -186,6 +185,7 @@ export class ChannelsComponent implements OnInit {
   }
 
   getDownloadData() {
+    this.spinner.show();
     var now = new Date()
     var todayDate = new Date()
     todayDate.setHours(0, 0, 0, 0)
@@ -208,6 +208,9 @@ export class ChannelsComponent implements OnInit {
 
   exportAsExcel(sendData) {
     var csvStr = "News Channel API Reports" + "\n";
+    csvStr += "\n";
+    csvStr += 'Threshold Value : 1 Sec' + "\n";
+    csvStr += "\n";
     let JsonFields = ["S.No", "Hit Time", "Response Time"]
     csvStr += JsonFields.join(",") + "\n";
     sendData.forEach((element, index) => {
@@ -221,5 +224,6 @@ export class ChannelsComponent implements OnInit {
     hiddenElement.target = '_blank';
     hiddenElement.download = 'News-Channel-API-Reports.csv';
     hiddenElement.click();
+    this.spinner.hide();
   }
 }
