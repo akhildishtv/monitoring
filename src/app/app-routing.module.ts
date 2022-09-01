@@ -21,51 +21,25 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent
   },
-  {
-    path: 'channels',
-    canActivate: [AuthService],
-    component: ChannelsComponent
-  },
-  {
-    path: 'programs',
-    canActivate: [AuthService],
-    component: ProgramsComponent
-  },
-  {
-    path: 'languages',
-    canActivate: [AuthService],
-    component: LanguagesComponent
-  },
-  {
-    path: 'videoPlayer',
-    canActivate: [AuthService],
-    component: PlayerComponent
-  },
-  {
-    path: 'webSeries',
-    canActivate: [AuthService],
-    component: WebSeriesComponent
-  },
+
   {
     path: 'dashboard',
     canActivate: [AuthService],
     component: DashboardComponent,
   },
   {
-    path: 'locations',
-    canActivate: [AuthService],
-    component: LocationsComponent,
+    path: 'Watcho',
+    loadChildren: () => import('./watcho/watcho.module').then(m => m.WatchoModule)
   },
   {
-    path: 'activeSubscriptions',
-    canActivate: [AuthService],
-    component: ActiveSubscriptionComponent,
+    path: 'Analytics',
+    loadChildren: () => import('./analytics/analytics.module').then(m => m.AnalyticsModule)
   },
   {
-    path: 'kalturaLogin',
-    canActivate: [AuthService],
-    component: KalturaLoginComponent,
+    path: 'WatchoOffersAndPlans',
+    loadChildren: () => import('./offers-and-plans/offers-and-plans.module').then(m => m.OffersAndPlansModule)
   },
+
 ];
 
 @NgModule({
