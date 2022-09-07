@@ -121,6 +121,12 @@ export class CommonService {
 			)
 	}
 
+  getZee5Token(value): Observable<any> {
+    return this.http.get<any>(`https://server.watcho.com/API/getZeeToken?mobileNumber=${value.mobileNumber}`)
+      .pipe(
+        catchError(err => { return null })
+      )
+  }
   
   get1Data(data): Observable<any> {
 		return this.http.post(`${this.API_ENDPOINT}api/v1/analytics/impressions/dishbuzztime`, data, { headers: this.headers })

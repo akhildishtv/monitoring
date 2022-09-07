@@ -16,14 +16,10 @@ import { SidebarComponent } from './helpers/sidebar/sidebar.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ChartsModule } from 'ng2-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ChannelsComponent } from './analytics/channels/channels.component';
-import { LanguagesComponent } from './analytics/languages/languages.component';
-import { ProgramsComponent } from './analytics/programs/programs.component';
-import { PlayerComponent } from './watcho/player/player.component';
-import { WebSeriesComponent } from './watcho/web-series/web-series.component';
-import { LocationsComponent } from './analytics/locations/locations.component';
-import { ActiveSubscriptionComponent } from './watcho/active-subscription/active-subscription.component';
-import { KalturaLoginComponent } from './watcho/kaltura-login/kaltura-login.component';
+import { CommonModule } from '@angular/common';
+import { WatchoModule } from './watcho/watcho.module';
+import { AnalyticsModule } from './analytics/analytics.module';
+import { OffersAndPlansModule } from './offers-and-plans/offers-and-plans.module';
 
 @NgModule({
   declarations: [
@@ -32,23 +28,19 @@ import { KalturaLoginComponent } from './watcho/kaltura-login/kaltura-login.comp
     DashboardComponent,
     FooterComponent,
     HeaderComponent,
-    SidebarComponent,
-    ChannelsComponent, 
-    ProgramsComponent, 
-    LanguagesComponent, 
-    PlayerComponent, 
-    WebSeriesComponent, LocationsComponent, ActiveSubscriptionComponent, KalturaLoginComponent
+    SidebarComponent, 
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    ChartsModule,
     HttpClientModule,
     NgxSpinnerModule,
     BrowserAnimationsModule,
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
   ],
+  exports:[HeaderComponent],
   providers: [],
   bootstrap: [AppComponent]
 })
