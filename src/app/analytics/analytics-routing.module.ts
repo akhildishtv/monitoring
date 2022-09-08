@@ -9,22 +9,22 @@ import { ProgramsComponent } from './programs/programs.component';
 const routes: Routes = [
   {
     path: 'channels',
-    canActivate: [AuthService],
+    // canActivate: [AuthService],
     component: ChannelsComponent
   },
   {
     path: 'programs',
-    canActivate: [AuthService],
+    // canActivate: [AuthService],
     component: ProgramsComponent
   },
   {
     path: 'languages',
-    canActivate: [AuthService],
+    // canActivate: [AuthService],
     component: LanguagesComponent
   },
   {
     path: 'locations',
-    canActivate: [AuthService],
+    // canActivate: [AuthService],
     component: LocationsComponent,
   }
 ];

@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HelpersModule } from '../helpers/helpers.module';
 
 @NgModule({
   declarations: [
@@ -19,10 +20,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CommonModule ,
     OffersAndPlansRoutingModule,
     NgxSpinnerModule,
-    AppModule,
-    // MDBBootstrapModule.forRoot(),
     ChartsModule,
     ReactiveFormsModule,
+    HelpersModule
   ],
 })
 export class OffersAndPlansModule { }
