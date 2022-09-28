@@ -32,13 +32,13 @@ import { OffersAndPlansModule } from './offers-and-plans/offers-and-plans.module
   ],
   imports: [
     BrowserModule,
-    CommonModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
     NgxSpinnerModule,
     BrowserAnimationsModule,
     MDBBootstrapModule.forRoot(),
+    ChartsModule
   ],
   exports:[HeaderComponent],
   providers: [],
