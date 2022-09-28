@@ -10,19 +10,23 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HelpersModule } from '../helpers/helpers.module';
+import { SonyLivComponent } from './sony-liv/sony-liv.component';
+import { KlikkComponent } from './klikk/klikk.component';
 
 @NgModule({
   declarations: [
-    Zee5Component
+    Zee5Component,
+    SonyLivComponent,
+    KlikkComponent
   ],
   imports: [
     CommonModule ,
     OffersAndPlansRoutingModule,
     NgxSpinnerModule,
-    AppModule,
-    // MDBBootstrapModule.forRoot(),
     ChartsModule,
     ReactiveFormsModule,
+    HelpersModule
   ],
 })
 export class OffersAndPlansModule { }

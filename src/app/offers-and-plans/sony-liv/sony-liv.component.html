@@ -1,19 +1,15 @@
 <app-header></app-header>
 <div class="card margin">
-    <h2>Zee5 SSO API</h2>
+    <h2>Sony Liv SSO API</h2>
     <table class="table">
         <tbody>
             <tr>
                 <th scope="col">API Name</th>
-                <td>https://server.watcho.com/API/getZeeToken?mobileNumber=9873142703</td>
-            </tr>
-            <tr>
-                <th scope="col"></th>
-                <td>https://server.watcho.com/API/createZeeSubscription</td>
+                <td>https://tomcat4sony.mysmartstick.com/ServletSample/ServletFirstClass?Pseudocode=</td>
             </tr>
             <tr>
                 <th scope="col">Description</th>
-                <td> These APIs used to fetch the SSO tag of Zee5 for SSO login to Website/Application </td>
+                <td> These APIs used to fetch the SSO tag of Sony Liv for SSO login to Website/Application </td>
             </tr>
         </tbody>
     </table>
@@ -24,17 +20,6 @@
             <button mdbRipple type="button" (click)="getDownloadData()" class="btn btn-success buttonCss">DOWNLOAD</button>
             <canvas baseChart class="chart" [datasets]="mainChartData" [plugins]="barChartPlugins"
                 [labels]="mainChartLabels" [options]="mainChartOptions" [colors]="mainChartColours"
-                [legend]="mainChartLegend" [chartType]="mainChartType"></canvas>
-        </div>
-    </div>
-</div>
-<br>
-<div class="card mt-3" style="height: 400px;">
-    <div class="card-body">
-        <div class="chart-wrapper canvas">
-            <button mdbRipple type="button" (click)="getDownloadData()" class="btn btn-success buttonCss">DOWNLOAD</button>
-            <canvas baseChart class="chart" [datasets]="mainChartData1" [plugins]="barChartPlugins"
-                [labels]="mainChartLabels1" [options]="mainChartOptions" [colors]="mainChartColours"
                 [legend]="mainChartLegend" [chartType]="mainChartType"></canvas>
         </div>
     </div>

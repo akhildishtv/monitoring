@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
 
 @Component({
@@ -9,7 +10,8 @@ import { CommonService } from 'src/app/services/common.service';
 export class HeaderComponent implements OnInit {
 
   constructor(
-    private APIService: CommonService
+    private APIService: CommonService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -17,5 +19,10 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.APIService.logout()
+  }
+
+
+  CheckRoute(route){
+    this.router.navigate([route]);
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { map, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -87,18 +87,18 @@ export class CommonService {
   }
 
   getlocationData(data): Observable<any> {
-		return this.http.post(`${this.API_ENDPOINT}/api/v1/analytics/channel/newslocationuser`, data, { headers: this.headers })
-			.pipe(
-				catchError(err => { return null })
-			)
-	}
+    return this.http.post(`${this.API_ENDPOINT}/api/v1/analytics/channel/newslocationuser`, data, { headers: this.headers })
+      .pipe(
+        catchError(err => { return null })
+      )
+  }
 
   getAPIData(data): Observable<any> {
-		return this.http.post(`${this.PRODUCTION_URL}/API/getAPIData`, data, { headers: this.headers })
-			.pipe(
-				catchError(err => { return null })
-			)
-	}
+    return this.http.post(`${this.PRODUCTION_URL}/API/getAPIData`, data, { headers: this.headers })
+      .pipe(
+        catchError(err => { return null })
+      )
+  }
 
   getActiveSubscriptionData(): Observable<any> {
     return this.http.get<any>(`https://ottmobileapis.dishtv.in/API/SubscriptionManagement/GetActiveSubscriptions`)
@@ -115,11 +115,11 @@ export class CommonService {
   }
 
   getData(data): Observable<any> {
-		return this.http.post(`${this.API_ENDPOINT}api/v1/analytics/impressions/dishbuzzuser`, data, { headers: this.headers })
-			.pipe(
-				catchError(err => { return null })
-			)
-	}
+    return this.http.post(`${this.API_ENDPOINT}api/v1/analytics/impressions/dishbuzzuser`, data, { headers: this.headers })
+      .pipe(
+        catchError(err => { return null })
+      )
+  }
 
   getZee5Token(value): Observable<any> {
     return this.http.get<any>(`https://server.watcho.com/API/getZeeToken?mobileNumber=${value.mobileNumber}`)
@@ -127,11 +127,40 @@ export class CommonService {
         catchError(err => { return null })
       )
   }
-  
+
+  createZeeSubscription(value): Observable<any> {
+    return this.http.post<any>(`https://server.watcho.com/API/createZeeSubscription`, value)
+      .pipe(
+        catchError(err => { return null })
+      )
+  }
+
   get1Data(data): Observable<any> {
-		return this.http.post(`${this.API_ENDPOINT}api/v1/analytics/impressions/dishbuzztime`, data, { headers: this.headers })
-			.pipe(
-				catchError(err => { return null })
-			)
-	}
+    return this.http.post(`${this.API_ENDPOINT}api/v1/analytics/impressions/dishbuzztime`, data, { headers: this.headers })
+      .pipe(
+        catchError(err => { return null })
+      )
+  }
+
+  getSonyLivToken(Pseudocode) {
+    let URL = `https://tomcat4sony.mysmartstick.com/ServletSample/ServletFirstClass?Pseudocode=${Pseudocode}`
+    return this.http.get(URL)
+      .pipe((res: Observable<HttpResponse<any>>) => {
+        return res
+      });
+  }
+
+  getIPAddress() {
+    return this.http.get("https://api.ipify.org/?format=json");
+  }
+
+
+  ValidateKlikk(payload) {
+    let URL = `https://server.watcho.com/API/getKlikkRedirectURL`
+    // let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.post(URL, payload)
+      .pipe((res: Observable<HttpResponse<any>>) => {
+        return res
+      });
+  }
 }
