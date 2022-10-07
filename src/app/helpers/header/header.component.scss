@@ -1,22 +1,33 @@
 @media all and (min-width: 992px) {
-	.navbar .nav-item .dropdown-menu{ display: none; }
-	.navbar .nav-item:hover .nav-link{   }
-	.navbar .nav-item:hover .dropdown-menu{ display: block; }
-	.navbar .nav-item .dropdown-menu{ margin-top:0; }
+	.navbar .nav-item .dropdown-menu {
+		display: none;
+	}
+	.navbar .nav-item:hover .nav-link {
+	}
+	.navbar .nav-item:hover .dropdown-menu {
+		display: block;
+	}
+	.navbar .nav-item .dropdown-menu {
+		margin-top: 0;
+	}
 }
 
-.link{
-    font-size: larger;
-    color: antiquewhite;
-    padding-right: 20px;
+.link {
+	font-size: larger;
+	color: antiquewhite;
+	padding-right: 20px;
 }
 
 .image {
 	margin-right: -390px;
 	width: 20%;
-    // float: right;
+	// float: right;
 }
 
 #alignright {
 	float: right;
-  }
+}
+
+.active {
+	background: yellow;
+}

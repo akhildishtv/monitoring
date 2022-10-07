@@ -7,17 +7,15 @@ import { interval } from 'rxjs';
 import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
-  selector: 'app-zee5',
-  templateUrl: './zee5.component.html',
-  styleUrls: ['./zee5.component.scss']
+  selector: 'app-get-prepaid-balance',
+  templateUrl: './get-prepaid-balance.component.html',
+  styleUrls: ['./get-prepaid-balance.component.scss']
 })
-export class Zee5Component implements OnInit {
+export class GetPrepaidBalanceComponent implements OnInit {
 
   id: any
   public mainChartData: Array<any> = [];
   public mainChartLabels: Array<any> = [];
-  public mainChartData1: Array<any> = [];
-  public mainChartLabels1: Array<any> = [];
   public mainChartLegend = true;
   public mainChartType = 'line';
   public barChartPlugins = [pluginAnnotation];
@@ -127,12 +125,12 @@ export class Zee5Component implements OnInit {
 
   ngOnInit(): void {
     this.getData(1)
-    // this.id = setInterval(() => {
-    //   this.getData(2)
-    // }, 30000)
-    interval(30000).subscribe(x => {
+    this.id = setInterval(() => {
       this.getData(2)
-    });
+    }, 30000)
+    // interval(30000).subscribe(x => {
+    //   this.getData(2)
+    // });
   }
   ngOnDestroy() {
     if (this.id) {
@@ -146,9 +144,8 @@ export class Zee5Component implements OnInit {
     todayDate.setHours(0, 0, 0, 0)
     var dateStringWithTime = moment(now).local().format(`yyyy-MM-DDTHH:mm:ss`);
     var tsYesterday = moment(todayDate).local().format(`yyyy-MM-DDTHH:mm:ss`);
-    let value = {
-      "mobileNumber": 98731427403,
-    }
+    let value = 51437819
+    let token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Ijk4NzMxNDI3MDMiLCJuYmYiOjE2NjUxMzM0NTUsImV4cCI6MTc1MTUzMzQ1NSwiaWF0IjoxNjY1MTMzNDU1LCJpc3MiOiJEaXNoT1RUIiwiYXVkIjoiRGlzaE9UVCJ9.hzNVYeJy2Pi_eMIe_08ivP2532skMg8FN6mFfDpgnEU`
     const startTime = new Date().getTime();
     const time1 = new Intl.DateTimeFormat('en-US', {
       hour: 'numeric',
@@ -159,9 +156,9 @@ export class Zee5Component implements OnInit {
     this.startTime = time1
     this.mainChartLabels.push(time1)
     this.mainChartColours.push(defaultColors)
-    this.APIService.getZee5Token(value)
+    this.APIService.getPrepaidBalance(value)
       .subscribe(data => {
-        if (data.status == 200) {
+        if (data[`ResultDesc`] == `Success`) {
           const endTime = new Date().getTime();
           this.diff = (endTime - startTime) / 1000
           let val = []
@@ -179,54 +176,6 @@ export class Zee5Component implements OnInit {
             }
             if (this.mainChartData[1].data.length > 10) {
               this.mainChartData[1].data.shift();
-            }
-          }
-        }
-        if(data.token){
-          let value = {
-            "mobileNumber": '98731427403',
-            "token": data.token
-          }
-          this.createZeeSubscription(value, tag)
-        }
-      })
-  }
-  createZeeSubscription(value, tag) {
-    let now = new Date()
-    var todayDate = new Date()
-    todayDate.setHours(0, 0, 0, 0)
-    var dateStringWithTime = moment(now).local().format(`yyyy-MM-DDTHH:mm:ss`);
-    var tsYesterday = moment(todayDate).local().format(`yyyy-MM-DDTHH:mm:ss`);
-    const startTime = new Date().getTime();
-    const time1 = new Intl.DateTimeFormat('en-US', {
-      hour: 'numeric',
-      minute: 'numeric',
-      second: 'numeric',
-      hour12: true
-    }).format(startTime)
-    this.startTime = time1
-    this.mainChartLabels1.push(time1)
-    this.mainChartColours.push(defaultColors)
-    this.APIService.createZeeSubscription(value)
-      .subscribe(data => {
-        if (data.status == 200) {
-          const endTime = new Date().getTime();
-          this.diff = (endTime - startTime) / 1000
-          let val = []
-          val.push(this.diff)
-          let value = {
-            data: val
-          }
-          if (tag == 1) {
-            this.mainChartData1.push(value)
-          }
-          else {
-            this.mainChartData1[1].data.push(this.diff)
-            if (this.mainChartLabels1.length > 10) {
-              this.mainChartLabels1.shift();
-            }
-            if (this.mainChartData1[1].data.length > 10) {
-              this.mainChartData1[1].data.shift();
             }
           }
         }

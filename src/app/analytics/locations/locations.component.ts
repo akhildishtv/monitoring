@@ -122,12 +122,12 @@ export class LocationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData(1)
-    // this.id = setInterval(() => {
-    //   this.getData(2)
-    // }, 45000)
-    interval(45000).subscribe(x => {
+    this.id = setInterval(() => {
       this.getData(2)
-    });
+    }, 45000)
+    // interval(45000).subscribe(x => {
+    //   this.getData(2)
+    // });
   }
   ngOnDestroy() {
     if (this.id) {

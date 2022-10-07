@@ -1,27 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { CommonService } from 'src/app/services/common.service';
-import { NgxSpinnerService } from "ngx-spinner";
 import { Color, defaultColors } from 'ng2-charts';
 import * as pluginAnnotation from 'chartjs-plugin-annotation';
 import { interval } from 'rxjs';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
-  selector: 'app-active-subscription',
-  templateUrl: './active-subscription.component.html',
-  styleUrls: ['./active-subscription.component.scss']
+  selector: 'app-zee5',
+  templateUrl: './zee5.component.html',
+  styleUrls: ['./zee5.component.scss']
 })
-export class ActiveSubscriptionComponent implements OnInit {
+export class Zee5Component implements OnInit {
 
-
-  diff: number;
-  startTime: string;
-  status: boolean;
   id: any
   public mainChartData: Array<any> = [];
   public mainChartLabels: Array<any> = [];
+  public mainChartData1: Array<any> = [];
+  public mainChartLabels1: Array<any> = [];
   public mainChartLegend = true;
   public mainChartType = 'line';
+  public barChartPlugins = [pluginAnnotation];
   public mainChartColours: Array<any> = [
     {
       backgroundColor: 'transparent',
@@ -38,7 +37,6 @@ export class ActiveSubscriptionComponent implements OnInit {
       pointHoverBackgroundColor: '#fff'
     },
   ];
-  public barChartPlugins = [pluginAnnotation];
   public mainChartOptions: any = {
     tooltips: {
       enabled: true,
@@ -79,13 +77,14 @@ export class ActiveSubscriptionComponent implements OnInit {
       yAxes: [
         {
           ticks: {
-            stepSize: 0.1,
-            beginAtZero: true
+            stepSize: 0.2,
+            beginAtZero: true,
+            tension: 3
           },
           display: true,
           scaleLabel: {
             display: true,
-            labelString:  "RESPONSE TIME (Seconds)",
+            labelString: "RESPONSE TIME (Seconds)",
           },
         },
       ],
@@ -118,6 +117,9 @@ export class ActiveSubscriptionComponent implements OnInit {
       }
     }
   };
+  diff: number;
+  startTime: string;
+  status: boolean;
   constructor(
     private APIService: CommonService,
     private spinner: NgxSpinnerService,
@@ -137,7 +139,14 @@ export class ActiveSubscriptionComponent implements OnInit {
       clearInterval(this.id)
     }
   }
+
   getData(tag) {
+    let now = new Date()
+    var todayDate = new Date()
+    todayDate.setHours(0, 0, 0, 0)
+    var dateStringWithTime = moment(now).local().format(`yyyy-MM-DDTHH:mm:ss`);
+    var tsYesterday = moment(todayDate).local().format(`yyyy-MM-DDTHH:mm:ss`);
+    let value = 9873142703
     const startTime = new Date().getTime();
     const time1 = new Intl.DateTimeFormat('en-US', {
       hour: 'numeric',
@@ -148,9 +157,9 @@ export class ActiveSubscriptionComponent implements OnInit {
     this.startTime = time1
     this.mainChartLabels.push(time1)
     this.mainChartColours.push(defaultColors)
-    this.APIService.getActiveSubscriptionData()
+    this.APIService.getZee5Token(value)
       .subscribe(data => {
-        if (data) {
+        if (data.status == 200) {
           const endTime = new Date().getTime();
           this.diff = (endTime - startTime) / 1000
           let val = []
@@ -171,6 +180,54 @@ export class ActiveSubscriptionComponent implements OnInit {
             }
           }
         }
+        if (data.token) {
+          let value = {
+            "mobileNumber": "9873142703",
+            "token": data.token
+          }
+          this.createZeeSubscription(value, tag)
+        }
+      })
+  }
+  createZeeSubscription(value, tag) {
+    let now = new Date()
+    var todayDate = new Date()
+    todayDate.setHours(0, 0, 0, 0)
+    var dateStringWithTime = moment(now).local().format(`yyyy-MM-DDTHH:mm:ss`);
+    var tsYesterday = moment(todayDate).local().format(`yyyy-MM-DDTHH:mm:ss`);
+    const startTime = new Date().getTime();
+    const time1 = new Intl.DateTimeFormat('en-US', {
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+      hour12: true
+    }).format(startTime)
+    this.startTime = time1
+    this.mainChartLabels1.push(time1)
+    this.mainChartColours.push(defaultColors)
+    this.APIService.createZeeSubscription(value)
+      .subscribe(data => {
+        if (data.code == 200) {
+          const endTime = new Date().getTime();
+          this.diff = (endTime - startTime) / 1000
+          let val = []
+          val.push(this.diff)
+          let value = {
+            data: val
+          }
+          if (tag == 1) {
+            this.mainChartData1.push(value)
+          }
+          else {
+            this.mainChartData1[1].data.push(this.diff)
+            if (this.mainChartLabels1.length > 10) {
+              this.mainChartLabels1.shift();
+            }
+            if (this.mainChartData1[1].data.length > 10) {
+              this.mainChartData1[1].data.shift();
+            }
+          }
+        }
       })
   }
   getDownloadData() {
@@ -181,7 +238,7 @@ export class ActiveSubscriptionComponent implements OnInit {
     var start = now.getTime()
     var old = todayDate.getTime()
     let value = {
-      title: 'ActiveSubscriptionsAPI',
+      title: 'NewsChannelsAPI',
     }
     this.APIService.getAPIData(value)
       .subscribe(res => {
@@ -196,7 +253,7 @@ export class ActiveSubscriptionComponent implements OnInit {
   }
 
   exportAsExcel(sendData) {
-    var csvStr = "Watcho Active Subscription API Reports" + "\n";
+    var csvStr = "News Channel API Reports" + "\n";
     csvStr += "\n";
     csvStr += 'Threshold Value : 1 Sec' + "\n";
     csvStr += "\n";
@@ -211,8 +268,9 @@ export class ActiveSubscriptionComponent implements OnInit {
     var hiddenElement = document.createElement('a');
     hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csvStr);
     hiddenElement.target = '_blank';
-    hiddenElement.download = 'Active-Subscriptions-API-Reports.csv';
+    hiddenElement.download = 'News-Channel-API-Reports.csv';
     hiddenElement.click();
     this.spinner.hide();
   }
+
 }

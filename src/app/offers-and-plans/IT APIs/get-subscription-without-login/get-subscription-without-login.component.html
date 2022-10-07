@@ -1,15 +1,15 @@
 <app-header></app-header>
 <div class="card margin">
-    <h2>Sony Liv SSO API</h2>
+    <h2>Get Active Subscription (Without Login) API</h2>
     <table class="table">
         <tbody>
             <tr>
                 <th scope="col">API Name</th>
-                <td>https://tomcat4sony.mysmartstick.com/ServletSample/ServletFirstClass?Pseudocode=</td>
+                <td>https://ottmobileapis.dishtv.in/Api/AppSubscriptionManagement/GetActiveSubscriptions</td>
             </tr>
             <tr>
                 <th scope="col">Description</th>
-                <td> These APIs used to fetch the SSO tag of Sony Liv for SSO login to Website/Application </td>
+                <td> These APIs used to fetch the All the Packs available in Watcho Offers & Plans for Anonymous user </td>
             </tr>
         </tbody>
     </table>
@@ -17,7 +17,7 @@
 <div class="card mt-3" style="height: 400px;">
     <div class="card-body">
         <div class="chart-wrapper canvas">
-            <button mdbRipple type="button" (click)="getDownloadData()" class="btn btn-success buttonCss">DOWNLOAD</button>
+            <!-- <button mdbRipple type="button" (click)="getDownloadData()" class="btn btn-success buttonCss">DOWNLOAD</button> -->
             <canvas baseChart class="chart" [datasets]="mainChartData" [plugins]="barChartPlugins"
                 [labels]="mainChartLabels" [options]="mainChartOptions" [colors]="mainChartColours"
                 [legend]="mainChartLegend" [chartType]="mainChartType"></canvas>

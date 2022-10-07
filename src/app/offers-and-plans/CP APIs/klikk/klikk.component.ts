@@ -64,7 +64,7 @@ export class KlikkComponent implements OnInit {
           type: 'line',
           mode: 'horizontal',
           scaleID: 'y-axis-0',
-          value: 1,
+          value: 20,
           borderColor: 'red',
           borderWidth: 2,
         }
@@ -74,7 +74,7 @@ export class KlikkComponent implements OnInit {
       yAxes: [
         {
           ticks: {
-            stepSize: 0.2,
+            stepSize: 4,
             beginAtZero: true,
             tension: 3
           },
@@ -124,12 +124,12 @@ export class KlikkComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData(1)
-    // this.id = setInterval(() => {
-    //   this.getData(2)
-    // }, 30000)
-    interval(30000).subscribe(x => {
+    this.id = setInterval(() => {
       this.getData(2)
-    });
+    }, 60000)
+    // interval(60000).subscribe(x => {
+    //   this.getData(2)
+    // });
   }
   ngOnDestroy() {
     if (this.id) {
@@ -154,9 +154,21 @@ export class KlikkComponent implements OnInit {
     this.startTime = time1
     this.mainChartLabels.push(time1)
     this.mainChartColours.push(defaultColors)
-    this.APIService.getSonyLivToken(value)
-      .subscribe(data => {
-        if(data[`EncryptedToken`]){
+    this.APIService.getIPAddress().subscribe((res: any) => {
+      let device = this.APIService.getUA()
+      // var data = JSON.stringify({
+      //   "contactNumber": '9873142703',
+      //   "deviceId": res.ip,
+      //   "deviceName": device
+      // })
+
+      var data = {
+        "contactNumber": "9873142703",
+        "deviceId": res.ip,
+        "deviceName": device
+      }
+      this.APIService.ValidateKlikk(data).subscribe((res: any) => {
+        if (res.result == true) {
           const endTime = new Date().getTime();
           this.diff = (endTime - startTime) / 1000
           let val = []
@@ -178,6 +190,7 @@ export class KlikkComponent implements OnInit {
           }
         }
       })
+    });
   }
   getDownloadData() {
     this.spinner.show();

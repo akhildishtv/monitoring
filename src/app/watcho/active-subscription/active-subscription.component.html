@@ -19,7 +19,7 @@
 <div class="card mt-3" style="height: 400px;">
     <div class="card-body">
         <div class="chart-wrapper canvas">
-            <button mdbRipple type="button" (click)="getDownloadData()" class="btn btn-success buttonCss">DOWNLOAD</button>
+            <!-- <button mdbRipple type="button" (click)="getDownloadData()" class="btn btn-success buttonCss">DOWNLOAD</button> -->
             <canvas baseChart class="chart" [datasets]="mainChartData" [plugins]="barChartPlugins"
                 [labels]="mainChartLabels" [options]="mainChartOptions" [colors]="mainChartColours"
                 [legend]="mainChartLegend" [chartType]="mainChartType"></canvas>

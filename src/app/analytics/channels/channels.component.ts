@@ -125,12 +125,12 @@ export class ChannelsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData(1)
-    // this.id = setInterval(() => {
-    //   this.getData(2)
-    // }, 30000)
-    interval(30000).subscribe(x => {
+    this.id = setInterval(() => {
       this.getData(2)
-    });
+    }, 30000)
+    // interval(30000).subscribe(x => {
+    //   this.getData(2)
+    // });
   }
   ngOnDestroy() {
     if (this.id) {

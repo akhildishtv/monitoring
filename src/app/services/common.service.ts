@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { map, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -13,6 +13,8 @@ export class CommonService {
   API_ENDPOINT = environment.baseURL
   PRODUCTION_URL = environment.productionUrl
   headers: any
+  ottApiUrl: string = `https://ottmobileapis.dishtv.in/Api/`;
+
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -122,7 +124,7 @@ export class CommonService {
   }
 
   getZee5Token(value): Observable<any> {
-    return this.http.get<any>(`https://server.watcho.com/API/getZeeToken?mobileNumber=${value.mobileNumber}`)
+    return this.http.get<any>(`https://server.watcho.com/API/getZeeToken?mobileNumber=${value}`)
       .pipe(
         catchError(err => { return null })
       )
@@ -149,12 +151,62 @@ export class CommonService {
         return res
       });
   }
-
+  getUA = () => {
+    let device = "Unknown";
+    const ua = {
+      "Generic Linux": /Linux/i,
+      "Android": /Android/i,
+      "BlackBerry": /BlackBerry/i,
+      "Bluebird": /EF500/i,
+      "Chrome OS": /CrOS/i,
+      "Datalogic": /DL-AXIS/i,
+      "Honeywell": /CT50/i,
+      "iPad": /iPad/i,
+      "iPhone": /iPhone/i,
+      "iPod": /iPod/i,
+      "macOS": /Macintosh/i,
+      "Windows": /IEMobile|Windows/i,
+      "Zebra": /TC70|TC55/i,
+    }
+    Object.keys(ua).map(v => navigator.userAgent.match(ua[v]) && (device = v));
+    return device;
+  }
   getIPAddress() {
     return this.http.get("https://api.ipify.org/?format=json");
   }
 
+  GetActiveSubscriptions(): Observable<HttpResponse<any>> {
+    return this.http.get(`${this.ottApiUrl}AppSubscriptionManagement/GetActiveSubscriptions`).pipe((res: Observable<HttpResponse<any>>) => {
+      return res;
+    });
+  }
 
+  GetDishD2hActiveSubscriptions(OttSubscriberID): Observable<HttpResponse<any>> {
+    let token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Ijk4NzMxNDI3MDMiLCJuYmYiOjE2NjUxMzM0NTUsImV4cCI6MTc1MTUzMzQ1NSwiaWF0IjoxNjY1MTMzNDU1LCJpc3MiOiJEaXNoT1RUIiwiYXVkIjoiRGlzaE9UVCJ9.hzNVYeJy2Pi_eMIe_08ivP2532skMg8FN6mFfDpgnEU`
+    var headers = new HttpHeaders().set('Authorization', token);
+    headers = headers.append('Content-Type', 'application/json');
+    return this.http.get(`${this.ottApiUrl}AppSubscriptionManagement/GetActiveSubscriptions/${OttSubscriberID}`, { headers: headers }).pipe((res: Observable<HttpResponse<any>>) => {
+      return res;
+    });
+  }
+
+  getPrepaidBalance(OTTSubscriberID): Observable<HttpResponse<any>> {
+    let token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Ijk4NzMxNDI3MDMiLCJuYmYiOjE2NjUxMzM0NTUsImV4cCI6MTc1MTUzMzQ1NSwiaWF0IjoxNjY1MTMzNDU1LCJpc3MiOiJEaXNoT1RUIiwiYXVkIjoiRGlzaE9UVCJ9.hzNVYeJy2Pi_eMIe_08ivP2532skMg8FN6mFfDpgnEU`
+    var headers = new HttpHeaders().set('Authorization', token);
+    headers = headers.append('Content-Type', 'application/json');
+    return this.http.get(`${this.ottApiUrl}SubscriptionManagement/GetPrepaidBalance/${OTTSubscriberID}`, { headers: headers }).pipe((res: Observable<HttpResponse<any>>) => {
+      return res;
+    });
+  }
+
+  getOTTPlansSubscriptionHistory(OttSubscriberID) {
+    let token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Ijk4NzMxNDI3MDMiLCJuYmYiOjE2NjUxMzM0NTUsImV4cCI6MTc1MTUzMzQ1NSwiaWF0IjoxNjY1MTMzNDU1LCJpc3MiOiJEaXNoT1RUIiwiYXVkIjoiRGlzaE9UVCJ9.hzNVYeJy2Pi_eMIe_08ivP2532skMg8FN6mFfDpgnEU`
+    var headers = new HttpHeaders().set('Authorization', token);
+    headers = headers.append('Content-Type', 'application/json');
+    return this.http.get(`${this.ottApiUrl}AppSubscriptionManagement/SubscriptionHistory/${OttSubscriberID}`, { headers: headers }).pipe((res: Observable<HttpResponse<any>>) => {
+      return res;
+    });
+  }
   ValidateKlikk(payload) {
     let URL = `https://server.watcho.com/API/getKlikkRedirectURL`
     // let headers = new HttpHeaders().set('Content-Type', 'application/json');
